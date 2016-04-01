@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Vies</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_manage_travel">ManageTravelActivity</string>
+    <string name="travelName">Nome del viaggio</string>
+    <string name="travelDateOut">Data di partenza</string>
+    <string name="travelDateIn">Data di ritorno</string>
+    <string name="location">Luogo</string>
+    <string name="myTravels">I miei viaggi:</string>
+    <string name="title_activity_travel_detail">TravelDetailActivity</string>
+</resources>

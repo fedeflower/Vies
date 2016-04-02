@@ -7,10 +7,13 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="heading1">18dp</dimen>
+    <dimen name="titolo">16dp</dimen>
     <dimen name="heading2">14dp</dimen>
     <dimen name="heading3">12dp</dimen>
     <dimen name="thumbnail">64dp</dimen>
     <dimen name="thumbnailMarginRight">10dp</dimen>
     <dimen name="photoCounter">64dp</dimen>
     <dimen name="photoCounterTextSize">20dp</dimen>
+    <integer name="textAreaChar">140</integer>
+    <integer name="textFieldChar">30</integer>
 </resources>

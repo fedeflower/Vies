@@ -20,8 +20,12 @@
         </activity>
         <activity
             android:name=".activity.TravelManagementActivity"
-            android:label="@string/title_activity_manage_travel"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/nuovo_album"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".activity.MainActivity"/>
+    </activity>
+
+
         <activity android:name=".activity.TravelDetailActivity"></activity>
     </application>
 

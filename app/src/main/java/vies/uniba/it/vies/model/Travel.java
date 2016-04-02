@@ -16,7 +16,17 @@ public class Travel {
     private Integer id;
     private String name;
     private long dateOut;
-    private long dateIn;
+
+    public String getDescrizione() {
+        return descrizione;
+    }
+
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
+    }
+
+    //private long dateIn;
+    private String descrizione;
     private Location location;
     private List<Photo> photos;
 
@@ -44,14 +54,14 @@ public class Travel {
         this.dateOut = dateOut;
     }
 
-    public long getDateIn() {
+    /*public long getDateIn() {
         return dateIn;
     }
 
     public void setDateIn(long dateIn) {
         this.dateIn = dateIn;
     }
-
+*/
     public Location getLocation() {
         if(location == null) {
             location = new Location();
@@ -73,9 +83,10 @@ public class Travel {
 
     public String getFullDate() {
         return new StringBuilder()
+
                 .append(DateUtils.formatLong(getDateOut()))
-                .append(" - ")
-                .append(DateUtils.formatLong(getDateIn()))
+
+                //.append(DateUtils.formatLong(getDateIn()))
                 .toString();
     }
 
@@ -84,7 +95,7 @@ public class Travel {
         return "Travel{" +
                 "name='" + name + '\'' +
                 ", dateOut=" + dateOut +
-                ", dateIn=" + dateIn +
+                ", descrizione=" + descrizione +
                 ", location=" + location +
                 ", photos=" + photos +
                 '}';

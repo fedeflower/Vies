@@ -25,7 +25,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static DBHelper instance;
 
     public static final Integer DB_VERSION = 2;
-    public static final String DATABASE_NAME = "vies.db";
+    public static final String DATABASE_NAME = "vies2.db";
     public static final String TRAVEL_TABLE = "travel";
     public static final String ALBUM_TABLE = "album";
 
@@ -53,7 +53,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 .append(" id integer primary key, ")
                 .append(" name text, ")
                 .append(" dateOut date, ")
-                .append(" dateIn date, ")
+                .append(" descrizione text, ")
                 .append(" locationName text, ")
                 .append(" lat text, ")
                 .append(" lon text ")
@@ -67,7 +67,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 .append(" id integer primary key, ")
                 .append(" name text, ")
                 .append(" dateOut date, ")
-                .append(" dateIn date, ")
+                //.append(" descrizione text, ")
                 .append(" lat text, ")
                 .append(" lon text ")
                 .append(" ) ")
@@ -90,7 +90,7 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", t.getName());
         contentValues.put("dateOut", t.getDateOut());
-        contentValues.put("dateIn", t.getDateIn());
+        contentValues.put("descrizione", t.getDescrizione());
         contentValues.put("locationName", t.getLocation().getName());
         contentValues.put("lat", t.getLocation().getLatitude());
         contentValues.put("lon", t.getLocation().getLongitude());
@@ -112,7 +112,8 @@ public class DBHelper extends SQLiteOpenHelper {
             //t.setId(res.getInt(res.getColumnIndex("id")));
             t.setName(res.getString(res.getColumnIndex("name")));
             t.setDateOut(res.getLong(res.getColumnIndex("dateOut")));
-            t.setDateIn(res.getLong(res.getColumnIndex("dateIn")));
+            //t.setDateIn(res.getLong(res.getColumnIndex("dateIn")));
+            t.setDescrizione(res.getString(res.getColumnIndex("descrizione")));
 
             Location l = new Location(res.getString(res.getColumnIndex("locationName")));
             l.setLatitude(res.getDouble(res.getColumnIndex("lat")));

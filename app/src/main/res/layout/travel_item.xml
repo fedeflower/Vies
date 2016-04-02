@@ -4,7 +4,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp">
+   >
 
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -12,11 +12,17 @@
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white">
+        card_view:cardUseCompatPadding="true"
+        card_view:cardElevation="6dp"
+        card_view:cardCornerRadius="3dp"
+
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            >
 
     <ImageView
         android:id="@+id/favThumbnail"
@@ -51,18 +57,22 @@
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/heading2"
-        android:text="First time in London" />
-    <TextView
+        android:textSize="@dimen/titolo"
+        android:text="Titolo"
+        android:textStyle="bold"/>
+
+
+        <TextView
+            android:id="@+id/locationName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Luogo" />
+        <TextView
         android:id="@+id/date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="22/03/2016 - 29/03/2016" />
-    <TextView
-        android:id="@+id/locationName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Londra" />
+        android:text="Data" />
+
 
     </LinearLayout>
 

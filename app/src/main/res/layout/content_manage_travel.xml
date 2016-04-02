@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -11,7 +12,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".activity.TravelManagementActivity"
     tools:showIn="@layout/activity_manage_travel"
-    android:orientation="vertical">
+    android:background="@color/bg">
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/travelNameLayout"
@@ -22,7 +23,8 @@
             android:id="@+id/travelNameInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/travelName" />
+            android:hint="@string/travelName"
+            android:maxLength="@integer/textFieldChar" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -32,7 +34,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/travelDateOutInput"
+            android:id="@+id/travelDateInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="false"
@@ -40,19 +42,6 @@
 
     </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/travelDateInLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/travelDateInInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="false"
-            android:hint="@string/travelDateIn" />
-
-    </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/travelLocationNameLayout"
@@ -63,8 +52,28 @@
             android:id="@+id/travelLocationNameInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="@string/location"
 
-            android:hint="@string/location" />
+            android:maxLength="@integer/textFieldChar" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/travelDescrizioneLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/travelDescrizioneInput"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/descrizione"
+            android:inputType="textMultiLine"
+            android:maxLength="@integer/textAreaChar"
+            android:maxLines="10"
+            android:minLines="1"
+            android:scrollbars="vertical" />
+
 
     </android.support.design.widget.TextInputLayout>
 

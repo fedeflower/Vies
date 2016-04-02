@@ -3,7 +3,6 @@ package vies.uniba.it.vies.activity;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -22,7 +21,7 @@ public class TravelManagementActivity extends AppCompatActivity {
 
     private EditText travelName;
     private EditText travelDateIn;
-    private EditText travelDateOut;
+    private EditText travelDate;
     private EditText travelLocationName;
 
     @Override
@@ -31,10 +30,11 @@ public class TravelManagementActivity extends AppCompatActivity {
         setContentView(R.layout.activity_manage_travel);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         travelName = (EditText) findViewById(R.id.travelNameInput);
-        travelDateIn = (EditText) findViewById(R.id.travelDateInInput);
-        travelDateOut = (EditText) findViewById(R.id.travelDateOutInput);
+        travelDate = (EditText) findViewById(R.id.travelDateInput);
         travelLocationName = (EditText) findViewById(R.id.travelLocationNameInput);
 
         final Calendar dateOutCalendar = Calendar.getInstance();
@@ -45,13 +45,13 @@ public class TravelManagementActivity extends AppCompatActivity {
                 dateOutCalendar.set(Calendar.YEAR, year);
                 dateOutCalendar.set(Calendar.MONTH, monthOfYear);
                 dateOutCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                travelDateOut.setText(DateUtils.formatDate(dateOutCalendar.getTime()));
+                travelDate.setText(DateUtils.formatDate(dateOutCalendar.getTime()));
             }
 
         };
 
 
-        final Calendar dateInCalendar = Calendar.getInstance();
+       /* final Calendar dateInCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener dateInPicker = new DatePickerDialog.OnDateSetListener() {
 
             @Override
@@ -62,9 +62,9 @@ public class TravelManagementActivity extends AppCompatActivity {
                 travelDateIn.setText(DateUtils.formatDate(dateInCalendar.getTime()));
             }
 
-        };
+        };*/
 
-        travelDateIn.setOnClickListener(new View.OnClickListener() {
+       /* travelDateIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -73,9 +73,9 @@ public class TravelManagementActivity extends AppCompatActivity {
                         dateInCalendar.get(Calendar.MONTH),
                         dateInCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
-        });
+        });*/
 
-        travelDateOut.setOnClickListener(new View.OnClickListener() {
+        travelDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -95,7 +95,7 @@ public class TravelManagementActivity extends AppCompatActivity {
                 Travel travel = new Travel();
                 travel.setName(travelName.getText().toString());
                 travel.setDateOut(dateOutCalendar.getTimeInMillis());
-                travel.setDateIn(dateInCalendar.getTimeInMillis());
+                //travel.setDateIn(dateInCalendar.getTimeInMillis());
                 travel.getLocation().setName(travelLocationName.getText().toString());
 
                 DBHelper.getInstance(getApplicationContext()).insertTravel(travel);

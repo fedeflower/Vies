@@ -6,10 +6,12 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_manage_travel">ManageTravelActivity</string>
-    <string name="travelName">Nome del viaggio</string>
-    <string name="travelDateOut">Data di partenza</string>
+    <string name="nuovo_album">Nuovo Album</string>
+    <string name="travelName">Titolo</string>
+    <string name="travelDateOut">Data</string>
     <string name="travelDateIn">Data di ritorno</string>
     <string name="location">Luogo</string>
+    <string name="descrizione">Descrizione</string>
     <string name="myTravels">I miei viaggi:</string>
     <string name="title_activity_travel_detail">TravelDetailActivity</string>
 </resources>

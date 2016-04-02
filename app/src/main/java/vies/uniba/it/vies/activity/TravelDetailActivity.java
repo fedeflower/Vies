@@ -1,10 +1,13 @@
 package vies.uniba.it.vies.activity;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +31,7 @@ public class TravelDetailActivity extends AppCompatActivity {
         /*Integer travelId = this.getIntent().getExtras().getInt("travelID");
         // TODO: user travelID in order to retrieve the photos' travel
         Log.d("test", "travel ID = " + travelId);*/
-        initFakePhotos(6);
+        initFakePhotos(1);
 
         photosRecyclerView = (RecyclerView) findViewById(R.id.photosRecyclerView);
 
@@ -36,6 +39,16 @@ public class TravelDetailActivity extends AppCompatActivity {
         photosRecyclerView.setAdapter(photoAdapter);
         photosRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        final FloatingActionButton newTravelButton = (FloatingActionButton) findViewById(R.id.saveTravelButton);
+        newTravelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
+                Intent i = new Intent(getApplicationContext(), TravelManagementActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     private void initFakePhotos(Integer n) {

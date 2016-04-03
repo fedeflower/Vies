@@ -25,6 +25,7 @@ import vies.uniba.it.vies.adapter.OnItemClickListener;
 import vies.uniba.it.vies.adapter.TravelAdapter;
 import vies.uniba.it.vies.database.DBHelper;
 import vies.uniba.it.vies.model.Travel;
+import vies.uniba.it.vies.util.Prefs;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnItemClickListener<Travel> {
@@ -36,10 +37,13 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        run();
+        relog();
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setSubtitle("About");
+        //getSupportActionBar().setSubtitle("About");
+        getSupportActionBar().setSubtitle(Prefs.getInstance(this).getString("username", "About"));
         travelsRecyclerView = (RecyclerView) findViewById(R.id.travelsRecyclerView);
 
         travelAdapter = new TravelAdapter(travels, this);
@@ -119,7 +123,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-
+            Prefs.getInstance(this).edit().putBoolean("logged_in", false).commit();
+            Log.d("Comments", "Slog");
+            startActivity(new Intent(this, LoginActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -150,5 +156,26 @@ public class MainActivity extends AppCompatActivity
         Intent i = new Intent(MainActivity.this, TravelDetailActivity.class);
         //startActivity(i, bundle);
         startActivity(i);
+    }
+
+    private void run() {
+        if (Prefs.getInstance(this).getBoolean("my_first_time", true)) {
+            //the app is being launched for first time, do something
+            Log.d("Comments", "First time");
+            startActivity(new Intent(this, LoginActivity.class));
+            // first time task
+
+            // record the fact that the app has been started at least once
+            Prefs.getInstance(this).edit().putBoolean("my_first_time", false).commit();
+        }
+    }
+
+    private void relog() {
+        if (!Prefs.getInstance(this).getBoolean("logged_in", false)) {
+            //the app is being launched for first time, do something
+            Log.d("Comments", "Relog");
+            startActivity(new Intent(this, LoginActivity.class));
+            // first time task
+        }else Log.d("Comments", "Already");
     }
 }

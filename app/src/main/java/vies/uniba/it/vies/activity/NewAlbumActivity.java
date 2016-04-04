@@ -3,6 +3,7 @@ package vies.uniba.it.vies.activity;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -17,25 +18,24 @@ import vies.uniba.it.vies.database.DBHelper;
 import vies.uniba.it.vies.model.Travel;
 import vies.uniba.it.vies.util.DateUtils;
 
-public class TravelManagementActivity extends AppCompatActivity {
+public class NewAlbumActivity extends AppCompatActivity {
 
-    private EditText travelName;
-    private EditText travelDateIn;
-    private EditText travelDate;
-    private EditText travelLocationName;
+    private TextInputEditText travelName;
+    private TextInputEditText travelDate;
+    private TextInputEditText travelLocationName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manage_travel);
+        setContentView(R.layout.activity_new_album);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        travelName = (EditText) findViewById(R.id.travelNameInput);
-        travelDate = (EditText) findViewById(R.id.travelDateInput);
-        travelLocationName = (EditText) findViewById(R.id.travelLocationNameInput);
+        travelName = (TextInputEditText) findViewById(R.id.travelNameInput);
+        travelDate = (TextInputEditText) findViewById(R.id.travelDateInput);
+        travelLocationName = (TextInputEditText) findViewById(R.id.travelLocationNameInput);
 
         final Calendar dateOutCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener dateOutPicker = new DatePickerDialog.OnDateSetListener() {
@@ -68,7 +68,7 @@ public class TravelManagementActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                new DatePickerDialog(TravelManagementActivity.this, dateInPicker,
+                new DatePickerDialog(NewAlbumActivity.this, dateInPicker,
                         dateInCalendar.get(Calendar.YEAR),
                         dateInCalendar.get(Calendar.MONTH),
                         dateInCalendar.get(Calendar.DAY_OF_MONTH)).show();
@@ -79,7 +79,7 @@ public class TravelManagementActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                new DatePickerDialog(TravelManagementActivity.this, dateOutPicker,
+                new DatePickerDialog(NewAlbumActivity.this, dateOutPicker,
                         dateOutCalendar.get(Calendar.YEAR),
                         dateOutCalendar.get(Calendar.MONTH),
                         dateOutCalendar.get(Calendar.DAY_OF_MONTH)).show();

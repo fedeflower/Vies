@@ -1,4 +1,4 @@
-package vies.uniba.it.vies.gallery;
+package vies.uniba.it.vies.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,12 +14,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-//import com.bumptech.glide.Glide;
+import com.bumptech.glide.Glide;
 
 import vies.uniba.it.vies.R;
+import vies.uniba.it.vies.adapter.DepthPageTransformer;
+import vies.uniba.it.vies.model.ImageModel;
+
 import java.util.ArrayList;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailPhotoActivity extends AppCompatActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -44,10 +47,12 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_detailphoto);
 
-        //toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
+        //getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         data = getIntent().getParcelableArrayListExtra("data");
         pos = getIntent().getIntExtra("pos", 0);
@@ -58,7 +63,7 @@ public class DetailActivity extends AppCompatActivity {
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), data);
         // Set up the ViewPager with the sections adapter.
-        //mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setPageTransformer(true, new DepthPageTransformer());
 
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -91,25 +96,22 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_detail, menu);
+        getMenuInflater().inflate(R.menu.menu_detail, menu);
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            case R.id.action_settings:
+                return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
-
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -191,14 +193,13 @@ public class DetailActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-           // View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
 
- //           final ImageView imageView = (ImageView) rootView.findViewById(R.id.detail_image);
+            final ImageView imageView = (ImageView) rootView.findViewById(R.id.detail_image);
 
-//            Glide.with(getActivity()).load(url).thumbnail(0.1f).into(imageView);
+            Glide.with(getActivity()).load(url).thumbnail(0.1f).into(imageView);
 
-  //          return rootView;
-            return null;
+            return rootView;
         }
 
     }

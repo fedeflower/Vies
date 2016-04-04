@@ -1,4 +1,4 @@
-package vies.uniba.it.vies.gallery;
+package vies.uniba.it.vies.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

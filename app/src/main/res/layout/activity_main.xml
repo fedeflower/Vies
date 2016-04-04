@@ -9,11 +9,69 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-    <include
-        layout="@layout/app_bar_main"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
+    <android.support.design.widget.AppBarLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:id="@+id/app_bar_layout">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    <include   android:id="@+id/toolbar"
+        layout="@layout/app_bar" />
+        <TextView
+            android:id="@+id/section_title"
+            android:layout_below="@id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:background="@color/colorPrimary"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="@dimen/heading1"
+            android:text="@string/myTravels"
+            android:textColor="@color/white"
+            android:paddingBottom="15dp"
+            />
+        </RelativeLayout>
+    </android.support.design.widget.AppBarLayout>
+
+
+        <LinearLayout
+            android:layout_below="@+id/app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bg"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/travelsRecyclerView"
+                android:scrollbars="vertical"
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+</RelativeLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/newTravelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/ic_add" />
+
+    </android.support.design.widget.CoordinatorLayout>
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
@@ -24,3 +82,4 @@
         app:menu="@menu/activity_main_drawer" />
 
 </android.support.v4.widget.DrawerLayout>
+

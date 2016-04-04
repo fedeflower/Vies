@@ -3,7 +3,6 @@ package vies.uniba.it.vies.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,7 +13,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
@@ -57,7 +55,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
-                Intent i = new Intent(getApplicationContext(), TravelManagementActivity.class);
+                Intent i = new Intent(getApplicationContext(), NewAlbumActivity.class);
                 startActivity(i);
             }
         });
@@ -89,7 +87,7 @@ public class MainActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
-    }*/
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -104,7 +102,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -119,13 +117,16 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
-
+            Log.d("Comments", "Test");
+            startActivity(new Intent(this, TabAnimationActivity.class));
         } else if (id == R.id.nav_share) {
-
+            Log.d("Comments", "Gallery");
+            startActivity(new Intent(this, GalleryActivity.class));
         } else if (id == R.id.nav_send) {
             Prefs.getInstance(this).edit().putBoolean("logged_in", false).commit();
             Log.d("Comments", "Slog");
             startActivity(new Intent(this, LoginActivity.class));
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -153,7 +154,9 @@ public class MainActivity extends AppCompatActivity
         // TODO: define bundle extras to pass the travel object
         //Bundle bundle = new Bundle();
         //bundle.putInt("travelID", item.getId());
-        Intent i = new Intent(MainActivity.this, TravelDetailActivity.class);
+        Intent i = new Intent(MainActivity.this, GalleryActivity.class);
+
+        i.putExtra("test", item.getName());
         //startActivity(i, bundle);
         startActivity(i);
     }

@@ -1,4 +1,4 @@
-package vies.uniba.it.vies.gallery;
+package vies.uniba.it.vies.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,12 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-//import com.bumptech.glide.Glide;
-//import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import vies.uniba.it.vies.model.ImageModel;
 import vies.uniba.it.vies.R;
 
 /**
@@ -33,23 +34,22 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder viewHolder;
         View v;
-         //   v = LayoutInflater.from(parent.getContext()).inflate(
-           //         R.layout.list_item, parent, false);
-            //viewHolder = new MyItemHolder(v);
+            v = LayoutInflater.from(parent.getContext()).inflate(
+                    R.layout.list_item, parent, false);
+            viewHolder = new MyItemHolder(v);
 
-     //   return viewHolder;
-        return null;
+       return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-         /*   Glide.with(context).load(data.get(position).getUrl())
+            Glide.with(context).load(data.get(position).getUrl())
                     .thumbnail(0.5f)
                     .override(200,200)
                     .crossFade()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(((MyItemHolder) holder).mImg);*/
+                    .into(((MyItemHolder) holder).mImg);
 
     }
 
@@ -65,7 +65,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public MyItemHolder(View itemView) {
             super(itemView);
 
-          //  mImg = (ImageView) itemView.findViewById(R.id.item_img);
+            mImg = (ImageView) itemView.findViewById(R.id.item_img);
         }
 
     }

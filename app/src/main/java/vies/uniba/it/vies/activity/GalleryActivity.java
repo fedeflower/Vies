@@ -1,4 +1,4 @@
-package vies.uniba.it.vies.gallery;
+package vies.uniba.it.vies.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,9 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 
 import vies.uniba.it.vies.R;
+import vies.uniba.it.vies.adapter.GalleryAdapter;
+import vies.uniba.it.vies.model.ImageModel;
+import vies.uniba.it.vies.adapter.RecyclerItemClickListener;
+
 import java.util.ArrayList;
 
 public class GalleryActivity extends AppCompatActivity {
@@ -41,7 +46,7 @@ public class GalleryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_gallery);
 
         for (int i = 0; i < IMGS.length; i++) {
 
@@ -52,10 +57,15 @@ public class GalleryActivity extends AppCompatActivity {
 
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
+        //getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        String pos = getIntent().getStringExtra("test");
+        getSupportActionBar().setSubtitle(pos);
+        //getSupportActionBar().setSubtitle("Gallery");
 
-       // mRecyclerView = (RecyclerView) findViewById(R.id.list);
+        mRecyclerView = (RecyclerView) findViewById(R.id.list);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         mRecyclerView.setHasFixedSize(true);
 
@@ -69,7 +79,7 @@ public class GalleryActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(View view, int position) {
 
-                        Intent intent = new Intent(GalleryActivity.this, DetailActivity.class);
+                        Intent intent = new Intent(GalleryActivity.this, DetailPhotoActivity.class);
                         intent.putParcelableArrayListExtra("data", data);
                         intent.putExtra("pos", position);
                         startActivity(intent);
@@ -77,6 +87,16 @@ public class GalleryActivity extends AppCompatActivity {
                     }
                 }));
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

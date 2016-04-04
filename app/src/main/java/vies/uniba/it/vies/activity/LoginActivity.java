@@ -5,6 +5,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputEditText;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -19,8 +22,8 @@ import vies.uniba.it.vies.util.Prefs;
 public class LoginActivity extends AppCompatActivity {
 
 
-    private EditText mEmailView;
-    private EditText mPasswordView;
+    private TextInputEditText mEmailView;
+    private TextInputEditText mPasswordView;
     private View mLoginFormView;
     private String username;
     final String PREFS_NAME = "MyPrefsFile";
@@ -33,8 +36,8 @@ public class LoginActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
             // Set up the login form.
-            mEmailView = (EditText) findViewById(R.id.email);
-            mPasswordView = (EditText) findViewById(R.id.password);
+            mEmailView = (TextInputEditText) findViewById(R.id.email);
+            mPasswordView = (TextInputEditText) findViewById(R.id.password);
 
             Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
             mEmailSignInButton.setOnClickListener(new View.OnClickListener() {

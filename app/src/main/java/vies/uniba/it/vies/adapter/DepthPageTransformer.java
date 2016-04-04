@@ -1,4 +1,4 @@
-package vies.uniba.it.vies.gallery;
+package vies.uniba.it.vies.adapter;
 
 import android.support.v4.view.ViewPager;
 import android.view.View;

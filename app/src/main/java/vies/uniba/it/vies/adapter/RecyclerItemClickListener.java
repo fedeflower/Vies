@@ -1,4 +1,4 @@
-package vies.uniba.it.vies.gallery;
+package vies.uniba.it.vies.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

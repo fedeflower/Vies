@@ -1,9 +1,7 @@
 package vies.uniba.it.vies.activity;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -12,22 +10,22 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import vies.uniba.it.vies.R;
 import vies.uniba.it.vies.fragment.GalleryFragment;
 import vies.uniba.it.vies.fragment.MapFragment;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class TabGMActivity extends AppCompatActivity {
-    String test="test";
+    
+ String album_name;
+    String album_location;
 
     ViewPager viewPager;
     ViewPagerAdapter adapter;
@@ -36,11 +34,12 @@ public class TabGMActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_gm);
-        test=getIntent().getStringExtra("album_name");
+        album_name=getIntent().getStringExtra("album_name");
+        album_location=getIntent().getStringExtra("album_location");
         final Toolbar toolbar = (Toolbar) findViewById(R.id.htab_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Vies");
-        getSupportActionBar().setSubtitle(test);
+        getSupportActionBar().setTitle(album_name);
+        getSupportActionBar().setSubtitle(album_location);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         viewPager = (ViewPager) findViewById(R.id.htab_viewpager);
@@ -53,7 +52,8 @@ public class TabGMActivity extends AppCompatActivity {
         final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.htab_collapse_toolbar);
         collapsingToolbarLayout.setTitleEnabled(false);
 
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
+ //calcola colore toolbar in base al colore della foto
+      /*  Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
                 R.drawable.header);
 
         Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
@@ -66,7 +66,8 @@ public class TabGMActivity extends AppCompatActivity {
                 collapsingToolbarLayout.setContentScrimColor(vibrantColor);
                 collapsingToolbarLayout.setStatusBarScrimColor(vibrantDarkColor);
             }
-        });
+
+        });*/
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -129,23 +130,23 @@ public class TabGMActivity extends AppCompatActivity {
 
     }
 
-/* funzione show toast
-    void showToast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
-*/
-    private void setupViewPager(ViewPager viewPager) {
+    /* funzione show toast
+        void showToast(String msg) {
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        }
+    */
+  private void setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new GalleryFragment(getResources().getColor(R.color.bg), test), "Gallery");
+        adapter.addFrag(new GalleryFragment(getResources().getColor(R.color.bg), album_name,album_location), "Gallery");
         //adapter.setDettagli(test);
-        adapter.addFrag(new MapFragment(test), "Mappa");
+        adapter.addFrag(new MapFragment(album_name), "Mappa");
         viewPager.setAdapter(adapter);
     }
 
-    @Override
+   @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_tab_gm, menu);
         return true;
     }
 
@@ -157,6 +158,10 @@ public class TabGMActivity extends AppCompatActivity {
                 return true;
             case R.id.action_settings:
                 return true;
+            case R.id.action_add:
+                return true;
+            case R.id.action_remove:
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -164,7 +169,7 @@ public class TabGMActivity extends AppCompatActivity {
     static class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
-        private final List<String> dettagli=new ArrayList<>();
+        private final List<String> dettagli = new ArrayList<>();
 
         public ViewPagerAdapter(FragmentManager manager) {
             super(manager);
@@ -185,7 +190,7 @@ public class TabGMActivity extends AppCompatActivity {
         }
 
         public void editFrag(Fragment fragment, String title) {
-            mFragmentList.add(0,fragment);
+            mFragmentList.add(0, fragment);
             mFragmentTitleList.add(title);
         }
 

@@ -1,7 +1,6 @@
 package vies.uniba.it.vies.activity;
 
 import android.animation.ArgbEvaluator;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -61,12 +60,12 @@ public class PagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                getWindow().getDecorView().setSystemUiVisibility(
-                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-                getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.black_trans80));
-            }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.black_trans80));
+        }
 
         setContentView(R.layout.activity_pager);
 
@@ -207,15 +206,15 @@ public class PagerActivity extends AppCompatActivity {
         ImageView img;
 
         //String[] titolo_pager = Resources.getSystem().getStringArray(R.array.titolo_pager);
-        String [] titolo_pager = new String[]{"Crea un nuovo album",
+        String[] titolo_pager = new String[]{"Crea un nuovo album",
                 "Scegli le tue foto",
                 "Aggiungi le foto di altri utenti",
                 "Goditi i tuoi ricordi"};
-        String [] descrizione_pager = new String[]{"Inserisci titolo, luogo e descrizione della tua esperienza",
+        String[] descrizione_pager = new String[]{"Inserisci titolo, luogo e descrizione della tua esperienza",
                 "Seleziona in maniera facile ed intuitiva tutti gli scatti che desideri",
                 "Cerca le foto che ti mancano grazie alla funzione social",
                 "Guarda la galleria di immagini e scopri dove hai scattato le foto grazie alla mappa interattiva"};
-        int[] bgs = new int[]{R.drawable.ic_photo_album_black_24px, R.drawable.ic_add_a_photo_black_24px, R.drawable.ic_group_add_black_24px,R.drawable.ic_person_pin_circle_black_24px};
+        int[] bgs = new int[]{R.drawable.ic_photo_album_black_24px, R.drawable.ic_add_a_photo_black_24px, R.drawable.ic_group_add_black_24px, R.drawable.ic_person_pin_circle_black_24px};
 
         public PlaceholderFragment() {
         }

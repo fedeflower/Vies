@@ -1,15 +1,7 @@
 package vies.uniba.it.vies.model;
 
-import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.media.ExifInterface;
-import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.Target;
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
 import com.drew.metadata.Directory;
@@ -18,7 +10,6 @@ import com.drew.metadata.Tag;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -29,7 +20,6 @@ import java.util.List;
 import java.util.Map;
 
 import vies.uniba.it.vies.R;
-import vies.uniba.it.vies.activity.MainActivity;
 import vies.uniba.it.vies.utils.App;
 
 /**
@@ -37,7 +27,7 @@ import vies.uniba.it.vies.utils.App;
  */
 public class Album {
     public static String BARI[] = {
-    "https://dl.dropboxusercontent.com/u/66373804/VIES/Bari-Lungomare.jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/Bari-Lungomare.jpg",
             "https://dl.dropboxusercontent.com/u/66373804/VIES/Bari-Petruzzelli.jpg",
             "https://dl.dropboxusercontent.com/u/66373804/VIES/Bari-Basilica.jpg",
             "https://dl.dropboxusercontent.com/u/66373804/VIES/Bari-Castello.jpg"};
@@ -57,13 +47,13 @@ public class Album {
             "https://dl.dropboxusercontent.com/u/66373804/VIES/Roma-Fori_Imperiali.jpg"};
     public static String DEF[] = {"http://images.wired.it/wp-content/uploads/2016/01/1453282239_gatto-9-600x335.jpg"};
     public static List<String> tags = Arrays.asList(App.getContext().getResources().getStringArray(R.array.tags));
-    public static Map<String,String> values=new HashMap<String, String>();
+    public static Map<String, String> values = new HashMap<String, String>();
 
-    public static List<Photo> getList(String str){
-        List<Photo> photos=new ArrayList<Photo>();
-        String IMGS[]={};
+    public static List<Photo> getList(String str) {
+        List<Photo> photos = new ArrayList<Photo>();
+        String IMGS[] = {};
 
-        switch(str.toUpperCase()) {
+        switch (str.toUpperCase()) {
             case "BARI": {
                 IMGS = Album.BARI;
                 break;
@@ -82,9 +72,9 @@ public class Album {
             }
         }
         for (int i = 0; i < IMGS.length; i++) {
-            Photo photo=new Photo();
+            Photo photo = new Photo();
             photo.setImg(IMGS[i].getBytes());
-            Location location=new Location();
+            Location location = new Location();
             location.setLatLng(getLatLngFromUrl(IMGS[i]));
             location.setName("test");
             photo.setLocation(location);
@@ -93,12 +83,14 @@ public class Album {
 
 
         return photos;
-    };
+    }
 
-    public static LatLng getLatLngFromUrl(String Url){
-    final String url=Url;
+    ;
 
-        Thread thread = new Thread(new Runnable(){
+    public static LatLng getLatLngFromUrl(String Url) {
+        final String url = Url;
+
+        Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -114,15 +106,17 @@ public class Album {
                                 Log.d("Comments",tag.getTagTypeHex());
                                 Log.d("Comments",tag.getDirectoryName());
                                 Log.d("Comments", tag.getDescription());*/
-                                if(tags.contains(tag.getTagName())){
+                                if (tags.contains(tag.getTagName())) {
                                     values.put(tag.getTagName(), tag.getDescription());
                                 }
                             }
                         }
 
+                    } catch (ImageProcessingException e) {
+                        Log.d("Comments", "errore1");
+                    } catch (IOException e) {
+                        Log.d("Comments", "errore2");
                     }
-                    catch (ImageProcessingException e){Log.d("Comments","errore1");}
-                    catch (IOException e) {Log.d("Comments","errore2");}
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -143,29 +137,29 @@ public class Album {
         String LONGITUDE_REF = values.get("GPS Longitude Ref");
 
         //FORMATO DDD:MM:SS.SSSSS;
-        Double Latitude=android.location.Location.convert(convert(LATITUDE));
-        Double Longitude=android.location.Location.convert(convert(LONGITUDE));
+        Double Latitude = android.location.Location.convert(convert(LATITUDE));
+        Double Longitude = android.location.Location.convert(convert(LONGITUDE));
 
 
-        LatLng latlng=new LatLng(Latitude,Longitude);
+        LatLng latlng = new LatLng(Latitude, Longitude);
         return latlng;
 
     }
 
-    public static String convert(String as){
+    public static String convert(String as) {
 
-        String d=as.split("°")[0];
-        String m=as.split("°")[1].split("'")[0].substring(1);
-        String s=as.split("°")[1].split("'")[1].split("\"")[0].substring(1);
-        if(s.contains("59"))s=s.replace("59","58");
-        s=s.replace(",",".");
-        String fin=d.concat(":").concat(m).concat(":").concat(s);
+        String d = as.split("°")[0];
+        String m = as.split("°")[1].split("'")[0].substring(1);
+        String s = as.split("°")[1].split("'")[1].split("\"")[0].substring(1);
+        if (s.contains("59")) s = s.replace("59", "58");
+        s = s.replace(",", ".");
+        String fin = d.concat(":").concat(m).concat(":").concat(s);
 
-        Log.d("Comments","as"+as);
-        Log.d("Comments", "DDD"+d);
-        Log.d("Comments","MM"+m);
-        Log.d("Comments","SSS"+s);
-        Log.d("Comments","RET"+fin);
+        Log.d("Comments", "as" + as);
+        Log.d("Comments", "DDD" + d);
+        Log.d("Comments", "MM" + m);
+        Log.d("Comments", "SSS" + s);
+        Log.d("Comments", "RET" + fin);
 
         return fin;
     }

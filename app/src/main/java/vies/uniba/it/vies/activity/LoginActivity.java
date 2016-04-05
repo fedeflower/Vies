@@ -29,30 +29,30 @@ public class LoginActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-            // Set up the login form.
-            mEmailView = (TextInputEditText) findViewById(R.id.email);
-            mPasswordView = (TextInputEditText) findViewById(R.id.password);
+        // Set up the login form.
+        mEmailView = (TextInputEditText) findViewById(R.id.email);
+        mPasswordView = (TextInputEditText) findViewById(R.id.password);
 
-            Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-            mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Login();
-                }
-            });
-
-            mLoginFormView = findViewById(R.id.login_form);
-        }
-
-        private void Login(){
-            username=mEmailView.getText().toString();
-            if(username.length()>0){
-                Login.getInstance().setUsername(username);
-                Prefs.getInstance(this).edit().putBoolean("logged_in", true).commit();
-                Prefs.getInstance(this).edit().putString("username", username).commit();
-                Log.d("Comments", "Log");
-                startActivity(new Intent(this,MainActivity.class));
+        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Login();
             }
+        });
+
+        mLoginFormView = findViewById(R.id.login_form);
+    }
+
+    private void Login() {
+        username = mEmailView.getText().toString();
+        if (username.length() > 0) {
+            Login.getInstance().setUsername(username);
+            Prefs.getInstance(this).edit().putBoolean("logged_in", true).commit();
+            Prefs.getInstance(this).edit().putString("username", username).commit();
+            Log.d("Comments", "Log");
+            startActivity(new Intent(this, MainActivity.class));
         }
+    }
 
 }

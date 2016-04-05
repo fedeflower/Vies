@@ -1,22 +1,20 @@
 package vies.uniba.it.vies.activity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +55,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //getSupportActionBar().setSubtitle("About");
-        getSupportActionBar().setSubtitle(Prefs.getInstance(this).getString("username", "About"));
+        //getSupportActionBar().setSubtitle(Prefs.getInstance(this).getString("username", "About"));
         travelsRecyclerView = (RecyclerView) findViewById(R.id.travelsRecyclerView);
 
         travelAdapter = new TravelAdapter(travels, this);
@@ -79,12 +77,16 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-            this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+		TextView name=(TextView) navigationView.getHeaderView(0).findViewById(R.id.drawer_name);
+        name.setText("Ciao, ".concat(Prefs.getInstance(this).getString("username", "About")));
+        TextView email=(TextView) navigationView.getHeaderView(0).findViewById(R.id.drawer_email);
+        email.setText(Prefs.getInstance(this).getString("username", "About").concat("@gmail.com"));
     }
 
     @Override
@@ -127,7 +129,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-         viesAlert.openAlert(this);
+            viesAlert.openAlert(this);
         } else if (id == R.id.nav_tutorial) {
             startActivity(introIntent);
         } else if (id == R.id.nav_about) {
@@ -173,7 +175,8 @@ public class MainActivity extends AppCompatActivity
         //bundle.putInt("travelID", item.getId());
         Intent i = new Intent(MainActivity.this, TabGMActivity.class);
 
-        i.putExtra("album_name", item.getLocation().getName());
+        i.putExtra("album_name",item.getName());
+		i.putExtra("album_location", item.getLocation().getName());
         //startActivity(i, bundle);
         startActivity(i);
     }
@@ -196,6 +199,6 @@ public class MainActivity extends AppCompatActivity
             Log.d("Comments", "Relog");
             startActivity(new Intent(this, LoginActivity.class));
             // first time task
-        }else Log.d("Comments", "Already");
+        } else Log.d("Comments", "Already");
     }
 }

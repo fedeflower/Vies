@@ -1,5 +1,6 @@
 package vies.uniba.it.vies.activity;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,11 +17,11 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
+
 import vies.uniba.it.vies.R;
 import vies.uniba.it.vies.adapter.DepthPageTransformer;
 import vies.uniba.it.vies.model.ImageModel;
-
-import java.util.ArrayList;
 
 public class DetailPhotoActivity extends AppCompatActivity {
 
@@ -36,6 +37,7 @@ public class DetailPhotoActivity extends AppCompatActivity {
 
     public ArrayList<ImageModel> data = new ArrayList<>();
     int pos;
+    String album_name;
 
     Toolbar toolbar;
 
@@ -56,8 +58,10 @@ public class DetailPhotoActivity extends AppCompatActivity {
 
         data = getIntent().getParcelableArrayListExtra("data");
         pos = getIntent().getIntExtra("pos", 0);
+        album_name=getIntent().getStringExtra("album_name");
 
         setTitle(data.get(pos).getName());
+        getSupportActionBar().setSubtitle(album_name);
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -158,6 +162,8 @@ public class DetailPhotoActivity extends AppCompatActivity {
         private static final String ARG_SECTION_NUMBER = "section_number";
         private static final String ARG_IMG_TITLE = "image_title";
         private static final String ARG_IMG_URL = "image_url";
+ private View rootView;
+        private ImageView imageView;
 
         @Override
         public void setArguments(Bundle args) {
@@ -193,9 +199,9 @@ public class DetailPhotoActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
+            rootView = inflater.inflate(R.layout.fragment_detail, container, false);
 
-            final ImageView imageView = (ImageView) rootView.findViewById(R.id.detail_image);
+            imageView = (ImageView) rootView.findViewById(R.id.detail_image);
 
             Glide.with(getActivity()).load(url).thumbnail(0.1f).into(imageView);
 

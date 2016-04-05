@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,7 @@ public class LaunchScreenActivity extends AppCompatActivity {
 
     private static final int SPLASH_TIME = 3000;
     public static List<Photo> photos;
-    public static List<LatLng> pos=new ArrayList<>();
+    public static List<LatLng> pos = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

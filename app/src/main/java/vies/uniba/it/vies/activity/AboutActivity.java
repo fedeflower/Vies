@@ -1,8 +1,6 @@
 package vies.uniba.it.vies.activity;
 
-import android.content.Intent;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,14 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vies.uniba.it.vies.R;
-import vies.uniba.it.vies.model.Album;
 import vies.uniba.it.vies.model.Photo;
 
 public class AboutActivity extends AppCompatActivity {
 
     //private static final int SPLASH_TIME = 3000;
     public static List<Photo> photos;
-    public static List<LatLng> pos=new ArrayList<>();
+    public static List<LatLng> pos = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +37,11 @@ public class AboutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_about_screen);
 
     }
+
     // Per uscire, cliccando in qualsiasi parte
     @Override
-    public boolean onTouchEvent(MotionEvent e){
-    finish();
+    public boolean onTouchEvent(MotionEvent e) {
+        finish();
         return true;
     }
 

@@ -2,6 +2,7 @@ package vies.uniba.it.vies.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -10,7 +11,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+
+import java.net.URL;
 
 import java.util.ArrayList;
 
@@ -29,6 +35,7 @@ public class GalleryFragment extends Fragment {
         GalleryAdapter adapter;
         ArrayList<ImageModel> data = new ArrayList<>();
     String album_name;
+String album_location;
 
     /*
         public static String IMGS[] = {
@@ -57,9 +64,10 @@ public class GalleryFragment extends Fragment {
         }
 
         @SuppressLint("ValidFragment")
-        public GalleryFragment(int color,String album_name) {
+public GalleryFragment(int color,String album_name,String album_location) {
             this.color = color;
             this.album_name=album_name;
+			this.album_location=album_location;
         }
 
         @Override
@@ -69,13 +77,13 @@ public class GalleryFragment extends Fragment {
             final FrameLayout frameLayout = (FrameLayout) view.findViewById(R.id.gallery_frag);
             frameLayout.setBackgroundColor(color);
 
-            RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.gallery_recycler);
+ final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.gallery_recycler);
             recyclerView.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 3));
             recyclerView.setHasFixedSize(true);
             Log.d("Comments", album_name);
            // Log.d("Comments", Boolean.toString(Prefs.getInstance(getActivity().getBaseContext()).getBoolean("album2_"+album_name, false)));
             //if(Prefs.getInstance(getActivity().getBaseContext()).getBoolean("album2_"+album_name, false)){
-            switch(album_name.toUpperCase()){
+             switch(album_location.toUpperCase()){
                 case "BARI": {
                     IMGS=Album.BARI;
                     break;
@@ -95,7 +103,7 @@ public class GalleryFragment extends Fragment {
             for (int i = 0; i < IMGS.length; i++) {
 
                 ImageModel imageModel = new ImageModel();
-                imageModel.setName("Image " + i);
+                imageModel.setName(getImgName(IMGS[i]));
                 imageModel.setUrl(IMGS[i]);
                 data.add(imageModel);
 
@@ -106,13 +114,31 @@ public class GalleryFragment extends Fragment {
 
 
             recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity().getBaseContext(),
-                    new RecyclerItemClickListener.OnItemClickListener() {
+                    new RecyclerItemClickListener.OnItemClickListener(){
 
                         @Override
                         public void onItemClick(View view, int position) {
 
+                            Animation animFadein = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
+                            Animation animFadeout = AnimationUtils.loadAnimation(getContext(), R.anim.fade_out);
+                            recyclerView.getLayoutManager().findViewByPosition(position).startAnimation(animFadeout);
+                            recyclerView.getLayoutManager().findViewByPosition(position).startAnimation(animFadein);
+                            /* if(recyclerView.getLayoutManager().findViewByPosition(position)!=null){
+                                Log.d("Comments","not null");
+                                ((ImageView)recyclerView.getLayoutManager().findViewByPosition(position)).setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
+
+                            }else Log.d("Comments", "null");
+
+                            if(view.findViewById(R.id.item_img)!=null){
+                                Log.d("Comments", "not null");
+                                ((ImageView) view.findViewById(R.id.item_img)).setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
+
+                            }else Log.d("Comments", "null");*/
+                            //((ImageView)recyclerView.getLayoutManager().findViewByPosition(position)).setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
+                            //((ImageView) view.findViewById(R.id.item_img)).setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
                             Intent intent = new Intent(getActivity(), DetailPhotoActivity.class);
                             intent.putParcelableArrayListExtra("data", data);
+                            intent.putExtra("album_name",album_name);
                             intent.putExtra("pos", position);
                             startActivity(intent);
 
@@ -121,4 +147,9 @@ public class GalleryFragment extends Fragment {
 
             return view;
         }
+
+    public String getImgName(String url){
+        String name = url.substring(url.lastIndexOf('/')+1, url.lastIndexOf('.'));
+        return name;
+    }
 }

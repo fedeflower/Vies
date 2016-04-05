@@ -9,14 +9,13 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
-import android.widget.EditText;
 
 import java.util.Calendar;
 
 import vies.uniba.it.vies.R;
 import vies.uniba.it.vies.database.DBHelper;
 import vies.uniba.it.vies.model.Travel;
-import vies.uniba.it.vies.util.DateUtils;
+import vies.uniba.it.vies.utils.DateUtils;
 
 public class NewAlbumActivity extends AppCompatActivity {
 

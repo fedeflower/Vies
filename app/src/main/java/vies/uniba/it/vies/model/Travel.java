@@ -1,12 +1,9 @@
 package vies.uniba.it.vies.model;
 
 
-import android.os.Parcelable;
-
-import java.util.Date;
 import java.util.List;
 
-import vies.uniba.it.vies.util.DateUtils;
+import vies.uniba.it.vies.utils.DateUtils;
 
 /**
  * Created by Daniele on 27/03/2016.

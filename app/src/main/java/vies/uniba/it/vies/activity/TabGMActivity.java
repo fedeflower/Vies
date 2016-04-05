@@ -1,10 +1,11 @@
 package vies.uniba.it.vies.activity;
 
-import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,48 +13,45 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import vies.uniba.it.vies.R;
-import vies.uniba.it.vies.adapter.SimpleRecyclerAdapter;
-import vies.uniba.it.vies.model.VersionModel;
+import vies.uniba.it.vies.fragment.GalleryFragment;
+import vies.uniba.it.vies.fragment.MapFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TabsHeaderActivity extends AppCompatActivity {
+public class TabGMActivity extends AppCompatActivity {
+    String test="test";
+
+    ViewPager viewPager;
+    ViewPagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tabs_header);
-
+        setContentView(R.layout.activity_tab_gm);
+        test=getIntent().getStringExtra("album_name");
         final Toolbar toolbar = (Toolbar) findViewById(R.id.htab_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Parallax Tabs");
+        getSupportActionBar().setTitle("Vies");
+        getSupportActionBar().setSubtitle(test);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.htab_viewpager);
+        viewPager = (ViewPager) findViewById(R.id.htab_viewpager);
         setupViewPager(viewPager);
 
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.htab_tabs);
+        final TabLayout tabLayout = (TabLayout) findViewById(R.id.htab_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
         final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.htab_collapse_toolbar);
         collapsingToolbarLayout.setTitleEnabled(false);
-
-        ImageView header = (ImageView) findViewById(R.id.header);
 
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
                 R.drawable.header);
@@ -73,9 +71,18 @@ public class TabsHeaderActivity extends AppCompatActivity {
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()) {
+                    case 0:
+
+                        break;
+                    case 1:
+                        MapFragment.setClick();
+                        break;
+                }
 
                 viewPager.setCurrentItem(tab.getPosition());
 
+                /* toast cambio tab
                 switch (tab.getPosition()) {
                     case 0:
                         showToast("One");
@@ -88,7 +95,7 @@ public class TabsHeaderActivity extends AppCompatActivity {
                         showToast("Three");
 
                         break;
-                }
+                }*/
             }
 
             @Override
@@ -101,18 +108,37 @@ public class TabsHeaderActivity extends AppCompatActivity {
 
             }
         });
+
+        final FloatingActionButton newTravelButton = (FloatingActionButton) findViewById(R.id.addPhoto);
+        newTravelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /*Snackbar.make(view, "Caricamento Foto", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                Log.d("Comments", Boolean.toString(Prefs.getInstance(getBaseContext()).getBoolean("album2_" + test, false)));
+                Prefs.getInstance(getBaseContext()).edit().putBoolean("album2_"+test, true).commit();
+                Log.d("Comments", Boolean.toString(Prefs.getInstance(getBaseContext()).getBoolean("album2_" + test, false)));
+                viewPager.setCurrentItem(tabLayout.getSelectedTabPosition());
+                ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+                adapter.editFrag(new GalleryFragment(getResources().getColor(R.color.bg), test), "Gallery");
+                viewPager.setCurrentItem(tabLayout.getSelectedTabPosition());
+                //setupViewPager(viewPager);
+                //Intent i = new Intent(getApplicationContext(), NewAlbumActivity.class);
+                //startActivity(i);*/
+            }
+        });
+
     }
 
-
+/* funzione show toast
     void showToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
-
+*/
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new DummyFragment(getResources().getColor(R.color.accent_material_light)), "CAT");
-        adapter.addFrag(new DummyFragment(getResources().getColor(R.color.ripple_material_light)), "DOG");
-        adapter.addFrag(new DummyFragment(getResources().getColor(R.color.button_material_dark)), "MOUSE");
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFrag(new GalleryFragment(getResources().getColor(R.color.bg), test), "Gallery");
+        //adapter.setDettagli(test);
+        adapter.addFrag(new MapFragment(test), "Mappa");
         viewPager.setAdapter(adapter);
     }
 
@@ -138,6 +164,7 @@ public class TabsHeaderActivity extends AppCompatActivity {
     static class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
+        private final List<String> dettagli=new ArrayList<>();
 
         public ViewPagerAdapter(FragmentManager manager) {
             super(manager);
@@ -153,6 +180,15 @@ public class TabsHeaderActivity extends AppCompatActivity {
             return mFragmentList.size();
         }
 
+        public void setDettagli(String dett) {
+            dettagli.add(dett);
+        }
+
+        public void editFrag(Fragment fragment, String title) {
+            mFragmentList.add(0,fragment);
+            mFragmentTitleList.add(title);
+        }
+
         public void addFrag(Fragment fragment, String title) {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
@@ -164,40 +200,4 @@ public class TabsHeaderActivity extends AppCompatActivity {
         }
     }
 
-    public static class DummyFragment extends Fragment {
-        int color;
-        SimpleRecyclerAdapter adapter;
-
-        public DummyFragment() {
-        }
-
-        @SuppressLint("ValidFragment")
-        public DummyFragment(int color) {
-            this.color = color;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.dummy_fragment, container, false);
-
-            final FrameLayout frameLayout = (FrameLayout) view.findViewById(R.id.dummyfrag_bg);
-            frameLayout.setBackgroundColor(color);
-
-            RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.dummyfrag_scrollableview);
-
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
-            recyclerView.setLayoutManager(linearLayoutManager);
-            recyclerView.setHasFixedSize(true);
-
-            List<String> list = new ArrayList<String>();
-            for (int i = 0; i < VersionModel.data.length; i++) {
-                list.add(VersionModel.data[i]);
-            }
-
-            adapter = new SimpleRecyclerAdapter(list);
-            recyclerView.setAdapter(adapter);
-
-            return view;
-        }
-    }
 }

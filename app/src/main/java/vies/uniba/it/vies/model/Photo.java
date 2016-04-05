@@ -1,7 +1,5 @@
 package vies.uniba.it.vies.model;
 
-import android.location.Location;
-
 /**
  * Created by Daniele on 27/03/2016.
  */
@@ -10,6 +8,10 @@ public class Photo {
     private byte[] img;
     private Location location;
     private String note;
+
+    Photo(){
+
+    }
 
     public byte[] getImg() {
         return img;

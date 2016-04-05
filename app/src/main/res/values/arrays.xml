@@ -29,5 +29,10 @@
         <item>Google style product tour</item>
 
     </string-array>
-
+    <string-array name="tags">
+        <item>GPS Latitude Ref</item>
+        <item>GPS Latitude</item>
+        <item>GPS Longitude Ref</item>
+        <item>GPS Longitude</item>
+    </string-array>
 </resources>

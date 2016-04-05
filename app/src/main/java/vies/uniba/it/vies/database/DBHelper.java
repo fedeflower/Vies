@@ -13,6 +13,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import vies.uniba.it.vies.model.Location;
 import vies.uniba.it.vies.model.Travel;
 
@@ -92,8 +94,8 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("dateOut", t.getDateOut());
         contentValues.put("descrizione", t.getDescrizione());
         contentValues.put("locationName", t.getLocation().getName());
-        contentValues.put("lat", t.getLocation().getLatitude());
-        contentValues.put("lon", t.getLocation().getLongitude());
+        //contentValues.put("lat", t.getLocation().getLatLng().latitude);
+        //contentValues.put("lon", t.getLocation().getLatLng().longitude);
         db.insert(TRAVEL_TABLE, null, contentValues);
         Log.d(getClass().getCanonicalName(), "insertTravel <<END>>");
         return true;
@@ -116,9 +118,7 @@ public class DBHelper extends SQLiteOpenHelper {
             t.setDescrizione(res.getString(res.getColumnIndex("descrizione")));
 
             Location l = new Location(res.getString(res.getColumnIndex("locationName")));
-            l.setLatitude(res.getDouble(res.getColumnIndex("lat")));
-            l.setLongitude(res.getDouble(res.getColumnIndex("lon")));
-
+            l.setLatLng(new LatLng(res.getDouble(res.getColumnIndex("lat")), res.getDouble(res.getColumnIndex("lon"))));
             t.setLocation(l);
             travels.add(t);
 

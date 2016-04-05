@@ -1,13 +1,14 @@
 package vies.uniba.it.vies.model;
 
+import com.google.android.gms.maps.model.LatLng;
+
 /**
  * Created by Daniele on 27/03/2016.
  */
 public class Location {
 
     private String name;
-    private Double latitude;
-    private Double longitude;
+    private LatLng latLng;
 
     public Location() {    }
 
@@ -23,19 +24,12 @@ public class Location {
         this.name = name;
     }
 
-    public Double getLatitude() {
-        return latitude;
-    }
+    public LatLng getLatLng() {
+            return latLng;
+        }
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
+    public void setLatLng(LatLng latLng) {
+            this.latLng = latLng;
+        }
 
-    public Double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
-    }
 }

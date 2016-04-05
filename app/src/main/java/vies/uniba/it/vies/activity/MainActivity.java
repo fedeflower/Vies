@@ -23,18 +23,30 @@ import vies.uniba.it.vies.adapter.OnItemClickListener;
 import vies.uniba.it.vies.adapter.TravelAdapter;
 import vies.uniba.it.vies.database.DBHelper;
 import vies.uniba.it.vies.model.Travel;
-import vies.uniba.it.vies.util.Prefs;
+import vies.uniba.it.vies.utils.Prefs;
+import vies.uniba.it.vies.utils.Utils;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnItemClickListener<Travel> {
 
+    public static final String PREF_USER_FIRST_TIME = "user_first_time";
+    boolean isUserFirstTime;
     private List<Travel> travels = new ArrayList<Travel>();
     private TravelAdapter travelAdapter;
     private RecyclerView travelsRecyclerView;
+    private Intent introIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        isUserFirstTime = Boolean.valueOf(Utils.readSharedSetting(MainActivity.this, PREF_USER_FIRST_TIME, "true"));
+
+        introIntent = new Intent(MainActivity.this, PagerActivity.class);
+        introIntent.putExtra(PREF_USER_FIRST_TIME, isUserFirstTime);
+
+        if (isUserFirstTime)
+            startActivity(introIntent);
+
         run();
         relog();
         setContentView(R.layout.activity_main);
@@ -118,10 +130,10 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_manage) {
             Log.d("Comments", "Test");
-            startActivity(new Intent(this, TabAnimationActivity.class));
+            startActivity(introIntent);
         } else if (id == R.id.nav_share) {
             Log.d("Comments", "Gallery");
-            startActivity(new Intent(this, GalleryActivity.class));
+            startActivity(new Intent(this, TabGMActivity.class));
         } else if (id == R.id.nav_send) {
             Prefs.getInstance(this).edit().putBoolean("logged_in", false).commit();
             Log.d("Comments", "Slog");
@@ -154,9 +166,9 @@ public class MainActivity extends AppCompatActivity
         // TODO: define bundle extras to pass the travel object
         //Bundle bundle = new Bundle();
         //bundle.putInt("travelID", item.getId());
-        Intent i = new Intent(MainActivity.this, GalleryActivity.class);
+        Intent i = new Intent(MainActivity.this, TabGMActivity.class);
 
-        i.putExtra("test", item.getName());
+        i.putExtra("album_name", item.getLocation().getName());
         //startActivity(i, bundle);
         startActivity(i);
     }

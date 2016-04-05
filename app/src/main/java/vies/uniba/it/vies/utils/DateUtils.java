@@ -1,4 +1,4 @@
-package vies.uniba.it.vies.util;
+package vies.uniba.it.vies.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

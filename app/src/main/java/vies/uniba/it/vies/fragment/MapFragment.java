@@ -11,8 +11,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
+import android.widget.Toast;
 
-        import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.CameraUpdateFactory;
         import com.google.android.gms.maps.GoogleMap;
         import com.google.android.gms.maps.MapView;
         import com.google.android.gms.maps.MapsInitializer;
@@ -35,21 +36,23 @@ public class MapFragment extends Fragment {
 
     MapView mMapView;
     private GoogleMap googleMap;
-    String album_name;
+    String album_location;
     private List<Photo> photos;
     public static boolean click=false;
+    public static boolean noTag=false;
 
 
     public static void setClick() {
         click=true;
     }
 
+    public static boolean getnoTag(){return noTag;}
     public MapFragment() {
     }
 
     @SuppressLint("ValidFragment")
-    public MapFragment(String album_name) {
-        this.album_name=album_name;
+    public MapFragment(String album_location) {
+        this.album_location=album_location;
     }
 
     @Override
@@ -59,7 +62,7 @@ public class MapFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_map, container,
                 false);
 
-        Log.d("Comments", album_name);
+        Log.d("Comments", album_location);
 
         mMapView = (MapView) v.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
@@ -73,12 +76,37 @@ public class MapFragment extends Fragment {
         }
 
         googleMap = mMapView.getMap();
+        List<LatLng> pos=null;
+        switch(album_location.toUpperCase()){
+            case "BARI":{
+                pos=LaunchScreenActivity.map.get("BARI");
+                break;
+            }
+            case "ROMA":{
+                pos=LaunchScreenActivity.map.get("ROMA");
+                break;
+            }
+            case "PARIGI":{
+                pos=LaunchScreenActivity.map.get("PARIGI");
+                break;
+            }
+            default:{
 
-        for (LatLng pos : LaunchScreenActivity.pos) {
-            googleMap.addMarker(new MarkerOptions().position(pos).title("Marker"));
+                break;
+            }
         }
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LaunchScreenActivity.pos.get(0), 12));
 
+        if(pos!=null) {
+            for (LatLng posz : pos) {
+                noTag=false;
+                googleMap.addMarker(new MarkerOptions().position(posz).title("Marker"));
+            }
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos.get(0), 12));
+        }
+        else{
+            noTag=true;
+
+        }
         /*if(click=true) {
             photos = Album.getList("BARI");
             for (Photo photo : photos) {

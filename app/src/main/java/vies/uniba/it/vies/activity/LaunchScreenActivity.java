@@ -11,7 +11,9 @@ import android.view.View;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import vies.uniba.it.vies.R;
 import vies.uniba.it.vies.model.Album;
@@ -22,6 +24,7 @@ public class LaunchScreenActivity extends AppCompatActivity {
     private static final int SPLASH_TIME = 3000;
     public static List<Photo> photos;
     public static List<LatLng> pos = new ArrayList<>();
+    public static Map<String,List<LatLng>> map=new HashMap<String,List<LatLng>>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +65,21 @@ public class LaunchScreenActivity extends AppCompatActivity {
             for (Photo photo : photos) {
                 pos.add(photo.getLocation().getLatLng());
             }
-
+            List<LatLng> posbari = new ArrayList<>();
+            map.put("BARI", new ArrayList<LatLng>(pos));
+            pos.clear();
+            photos = Album.getList("ROMA");
+            for (Photo photo : photos) {
+                pos.add(photo.getLocation().getLatLng());
+            }
+            map.put("ROMA", new ArrayList<LatLng>(pos));
+            pos.clear();
+            photos = Album.getList("PARIGI");
+            for (Photo photo : photos) {
+                pos.add(photo.getLocation().getLatLng());
+            }
+            map.put("PARIGI", new ArrayList<LatLng>(pos));
+            pos.clear();
             try {
                 Thread.sleep(SPLASH_TIME);
             } catch (InterruptedException e) {

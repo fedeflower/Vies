@@ -79,6 +79,7 @@ public class Album {
             location.setName("test");
             photo.setLocation(location);
             photos.add(photo);
+            Log.d("Comments", "foto"+i+": "+photo.getLocation().getLatLng());
         }
 
 
@@ -141,6 +142,7 @@ public class Album {
         Double Longitude = android.location.Location.convert(convert(LONGITUDE));
 
 
+
         LatLng latlng = new LatLng(Latitude, Longitude);
         return latlng;
 
@@ -155,14 +157,38 @@ public class Album {
         s = s.replace(",", ".");
         String fin = d.concat(":").concat(m).concat(":").concat(s);
 
-        Log.d("Comments", "as" + as);
+        /*Log.d("Comments", "as" + as);
         Log.d("Comments", "DDD" + d);
         Log.d("Comments", "MM" + m);
         Log.d("Comments", "SSS" + s);
-        Log.d("Comments", "RET" + fin);
+        Log.d("Comments", "RET" + fin);*/
 
         return fin;
     }
+
+    public static String[] getAlbum(String album_name) {
+        String[] IMGS;
+        switch (album_name.toUpperCase()) {
+            case "BARI": {
+                IMGS = Album.BARI;
+                break;
+            }
+            case "ROMA": {
+                IMGS = Album.ROMA;
+                break;
+            }
+            case "PARIGI": {
+                IMGS = Album.PARIGI;
+                break;
+            }
+            default: {
+                IMGS = Album.DEF;
+                break;
+            }
+        }
+        return IMGS;
+    }
+
 
 }
 

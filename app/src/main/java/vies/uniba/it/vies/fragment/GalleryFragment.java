@@ -68,6 +68,7 @@ public GalleryFragment(int color,String album_name,String album_location) {
             this.color = color;
             this.album_name=album_name;
 			this.album_location=album_location;
+            IMGS=Album.getAlbum(album_location);
         }
 
         @Override
@@ -83,21 +84,7 @@ public GalleryFragment(int color,String album_name,String album_location) {
             Log.d("Comments", album_name);
            // Log.d("Comments", Boolean.toString(Prefs.getInstance(getActivity().getBaseContext()).getBoolean("album2_"+album_name, false)));
             //if(Prefs.getInstance(getActivity().getBaseContext()).getBoolean("album2_"+album_name, false)){
-             switch(album_location.toUpperCase()){
-                case "BARI": {
-                    IMGS=Album.BARI;
-                    break;
-                }
-                case "ROMA":{
-                    IMGS=Album.ROMA;break;
-                }
-                case "PARIGI":{
-                    IMGS=Album.PARIGI;break;
-                }
-                default:{
-                    IMGS=Album.DEF;break;
-                }
-            }
+
         //}
 
             for (int i = 0; i < IMGS.length; i++) {

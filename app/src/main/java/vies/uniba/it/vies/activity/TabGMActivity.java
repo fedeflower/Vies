@@ -1,6 +1,8 @@
 package vies.uniba.it.vies.activity;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -14,13 +16,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import vies.uniba.it.vies.R;
 import vies.uniba.it.vies.fragment.GalleryFragment;
 import vies.uniba.it.vies.fragment.MapFragment;
+import vies.uniba.it.vies.model.Album;
+import vies.uniba.it.vies.utils.App;
 
 public class TabGMActivity extends AppCompatActivity {
     
@@ -29,6 +38,8 @@ public class TabGMActivity extends AppCompatActivity {
 
     ViewPager viewPager;
     ViewPagerAdapter adapter;
+
+    ImageView copertina;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +88,8 @@ public class TabGMActivity extends AppCompatActivity {
 
                         break;
                     case 1:
-                        MapFragment.setClick();
+                        if(MapFragment.getnoTag()){
+                        Toast.makeText(App.getContext(), "Nessun GeoTag presente.", Toast.LENGTH_LONG).show();}
                         break;
                 }
 
@@ -124,9 +136,24 @@ public class TabGMActivity extends AppCompatActivity {
                 viewPager.setCurrentItem(tabLayout.getSelectedTabPosition());
                 //setupViewPager(viewPager);
                 //Intent i = new Intent(getApplicationContext(), NewAlbumActivity.class);
-                //startActivity(i);*/
+                //startActivity(i);
+
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(App.getContext());
+                alertDialogBuilder.setTitle("Inserisci Nuova Foto").setItems(R.array.home_activities,
+                        new DialogInterface.OnClickListener(){
+                            @Override public void onClick(DialogInterface dialogInterface, int i){
+                                dialogListener.onClick(i);
+                            }
+                        });*/
+
             }
         });
+        String[] ALBUM=Album.getAlbum(album_location);
+        int random_no = new Random().nextInt(ALBUM.length);
+        String img = (ALBUM[random_no]);
+    copertina = (ImageView) findViewById(R.id.htab_header);
+        Glide.with(this).load(img).thumbnail(0.1f).into(copertina);
 
     }
 
@@ -139,7 +166,7 @@ public class TabGMActivity extends AppCompatActivity {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new GalleryFragment(getResources().getColor(R.color.bg), album_name,album_location), "Gallery");
         //adapter.setDettagli(test);
-        adapter.addFrag(new MapFragment(album_name), "Mappa");
+        adapter.addFrag(new MapFragment(album_location), "Mappa");
         viewPager.setAdapter(adapter);
     }
 
@@ -204,5 +231,7 @@ public class TabGMActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
+
+
 
 }

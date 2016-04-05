@@ -146,6 +146,7 @@ public class Album {
         Double Latitude=android.location.Location.convert(convert(LATITUDE));
         Double Longitude=android.location.Location.convert(convert(LONGITUDE));
 
+
         LatLng latlng=new LatLng(Latitude,Longitude);
         return latlng;
 
@@ -157,13 +158,14 @@ public class Album {
         String m=as.split("°")[1].split("'")[0].substring(1);
         String s=as.split("°")[1].split("'")[1].split("\"")[0].substring(1);
         if(s.contains("59"))s=s.replace("59","58");
+        s=s.replace(",",".");
         String fin=d.concat(":").concat(m).concat(":").concat(s);
 
-        /*Log.d("Comments","as"+as);
+        Log.d("Comments","as"+as);
         Log.d("Comments", "DDD"+d);
         Log.d("Comments","MM"+m);
         Log.d("Comments","SSS"+s);
-        Log.d("Comments","RET"+fin);*/
+        Log.d("Comments","RET"+fin);
 
         return fin;
     }

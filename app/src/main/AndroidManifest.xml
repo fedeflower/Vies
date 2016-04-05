@@ -62,6 +62,11 @@
             android:name=".activity.TabGMActivity"
             android:label="Vies"
             android:theme="@style/MyTheme.Detail" />
+        <activity
+            android:name=".activity.AboutActivity"
+            android:label="Vies"
+            />
+
     </application>
 
 </manifest>

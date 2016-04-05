@@ -2,14 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/side_nav_bar"
     tools:context="com.suleiman.material.activities.LaunchScreenActivity">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/launch_bg"
-        android:alpha="1"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,41 +15,37 @@
 
         <ImageView
 
-            android:layout_width="300px"
-            android:layout_height="302px"
-            android:padding="10dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
-            android:background="@drawable/vies_logo_medio" />
+            android:background="@drawable/logo_vies"
+            android:layout_margin="50dp" />
 
-        <TextView
-            style="@style/TextAppearance.AppCompat.Display1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="VIES"
-            android:textColor="@android:color/primary_text_dark"
-            android:textStyle="bold" />
+        <ImageView
 
-        <TextView
-            style="@style/TextAppearance.AppCompat.Title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:text="Viaggia e Scatta"
-            android:textSize="14dp"
-            android:textColor="@android:color/primary_text_dark" />
+            android:layout_width="64dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:background="@drawable/vies_testo_b"
+            android:layout_margin="0dp"
+            android:focusableInTouchMode="false"
+            android:padding="0dp" />
 
-        <TextView
-            style="@style/TextAppearance.AppCompat.Title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
-            android:gravity="center"
-            android:textSize="10dp"
-            android:text="Progetto IUM - 2015/2016"
-            android:textColor="@android:color/primary_text_dark" />
     </LinearLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+    </RelativeLayout>
+
+    <TextView
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:textSize="10dp"
+        android:text="Progetto IUM - 2015/2016"
+        android:textColor="@android:color/primary_text_dark"
+        android:layout_gravity="center_horizontal|bottom" />
 </FrameLayout>

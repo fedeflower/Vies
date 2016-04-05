@@ -20,7 +20,7 @@ import vies.uniba.it.vies.model.Photo;
 
 public class LaunchScreenActivity extends AppCompatActivity {
 
-    private static final int SPLASH_TIME = 5000;
+    private static final int SPLASH_TIME = 3000;
     public static List<Photo> photos;
     public static List<LatLng> pos=new ArrayList<>();
 

@@ -1,5 +1,7 @@
 package vies.uniba.it.vies.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,6 +16,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +28,7 @@ import vies.uniba.it.vies.database.DBHelper;
 import vies.uniba.it.vies.model.Travel;
 import vies.uniba.it.vies.utils.Prefs;
 import vies.uniba.it.vies.utils.Utils;
+import vies.uniba.it.vies.utils.viesAlert;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnItemClickListener<Travel> {
@@ -123,18 +127,18 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-            Log.d("Comments", "Test");
+         viesAlert.openAlert(this);
+        } else if (id == R.id.nav_tutorial) {
             startActivity(introIntent);
-        } else if (id == R.id.nav_share) {
-            Log.d("Comments", "Gallery");
-            startActivity(new Intent(this, TabGMActivity.class));
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_about) {
+            Log.d("Comments", "About");
+
+            startActivity(new Intent(this, AboutActivity.class));
+        } else if (id == R.id.nav_settings) {
+            viesAlert.openAlert(this);
+
+
+        } else if (id == R.id.nav_logout) {
             Prefs.getInstance(this).edit().putBoolean("logged_in", false).commit();
             Log.d("Comments", "Slog");
             startActivity(new Intent(this, LoginActivity.class));
@@ -145,6 +149,7 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
     @Override
     protected void onResume() {

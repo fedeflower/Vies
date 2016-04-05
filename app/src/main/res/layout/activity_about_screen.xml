@@ -1,0 +1,106 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/side_nav_bar"
+    tools:context="com.suleiman.material.activities.LaunchScreenActivity">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <ImageView
+
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal|top"
+            android:background="@drawable/logo_vies"
+            android:layout_margin="30dp" />
+
+        <ImageView
+
+            android:layout_width="64dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:background="@drawable/vies_testo_b"
+            android:layout_margin="30dp"
+            android:focusableInTouchMode="false"
+            android:padding="0dp" />
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_gravity="center_horizontal|bottom">
+        <TextView
+            android:id="@+id/about_t1"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|bottom"
+            android:textSize="10dp"
+            android:text="Applicazione realizzata da:"
+            android:textColor="@android:color/primary_text_dark"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="5dp" />
+
+        <TextView
+            android:layout_below="@+id/about_t1"
+            android:id="@+id/about_t2"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:text="Federico Fiore\nMarco Mirizio\nDaniele Di Virgilio"
+            android:textColor="@android:color/primary_text_dark"
+            android:layout_gravity="center_horizontal|bottom" />
+
+        <TextView
+            android:layout_below="@+id/about_t2"
+            android:id="@+id/about_t3"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="10dp"
+            android:text="per il progetto di"
+            android:textColor="@android:color/primary_text_dark"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginTop="10dp" />
+        <TextView
+            android:layout_below="@+id/about_t3"
+            android:id="@+id/about_t4"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="14dp"
+            android:text="Interazione Uomo-Macchina"
+            android:textColor="@android:color/primary_text_dark"
+            android:layout_gravity="center_horizontal|bottom"
+            />
+        <TextView
+            android:layout_below="@+id/about_t4"
+            android:id="@+id/about_t5"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="10dp"
+            android:text="Copyright © 2015/2016"
+            android:textColor="@android:color/primary_text_dark"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginTop="10dp" />
+    </RelativeLayout>
+
+
+</FrameLayout>
+

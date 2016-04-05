@@ -1,36 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group android:id="@+id/grp1" android:checkableBehavior="single">
         <item
             android:id="@+id/nav_camera"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:title="Avvia Fotocamera" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_tutorial"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:title="Quick Tutorial" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_info_black_24px"
+            android:title="About Vies" />
+
+
+
     </group>
 
-    <item android:title="Communicate">
-        <menu>
+    <group android:id="@+id/grp2" android:checkableBehavior="single">
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Gallery(Ex Share)" />
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_settings_black_24px"
+                android:title="Opzioni" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Logout(Ex Send)" />
-        </menu>
-    </item>
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_cancel_black_24px"
+                android:title="Logout" />
+    </group>
 
 </menu>

@@ -211,8 +211,8 @@ public class PagerActivity extends AppCompatActivity {
                 "Aggiungi le foto di altri utenti",
                 "Goditi i tuoi ricordi"};
         String[] descrizione_pager = new String[]{"Inserisci titolo, luogo e descrizione della tua esperienza",
-                "Seleziona in maniera facile ed intuitiva tutti gli scatti che desideri",
-                "Cerca le foto che ti mancano grazie alla funzione social",
+                "Tutti i tuoi scatti verranno aggiunti automaticamente, in base al luogo e alla data della foto! Potrai quindi gestire in maniera facile ed intuitiva la tua galleria",
+                "Cerca le foto che ti mancano grazie alla funzione social e inseriscile nel tuo album!",
                 "Guarda la galleria di immagini e scopri dove hai scattato le foto grazie alla mappa interattiva"};
         int[] bgs = new int[]{R.drawable.ic_photo_album_black_24px, R.drawable.ic_add_a_photo_black_24px, R.drawable.ic_group_add_black_24px, R.drawable.ic_person_pin_circle_black_24px};
 

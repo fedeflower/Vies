@@ -2,11 +2,15 @@ package vies.uniba.it.vies.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -25,6 +29,7 @@ public class LaunchScreenActivity extends AppCompatActivity {
     public static List<Photo> photos;
     public static List<LatLng> pos = new ArrayList<>();
     public static Map<String,List<LatLng>> map=new HashMap<String,List<LatLng>>();
+    private ProgressBar pb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,9 @@ public class LaunchScreenActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_launch_screen);
 
+        //CAMBIO COLORE BARRA PROGRESSBAR DI CARICAMENTO
+        pb = (ProgressBar) findViewById(R.id.pb);
+        pb.getIndeterminateDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
         new BackgroundTask().execute();
     }
 

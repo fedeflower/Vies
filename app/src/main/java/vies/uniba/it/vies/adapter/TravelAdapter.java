@@ -67,6 +67,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
                     listener.onItemClick(item);
                 }
             });
+
         }
     }
 
@@ -88,7 +89,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
     public void onBindViewHolder(TravelAdapter.ViewHolder viewHolder, int position) {
         // Get the data model based on position
         Travel travel = travels.get(position);
-
+        Log.w("comments",""+travel.getDescrizione());
         // Set item views based on the data model
 
         TextView travelName = viewHolder.travelName;

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -23,6 +24,8 @@ public class NewAlbumActivity extends AppCompatActivity {
     private TextInputEditText travelName;
     private TextInputEditText travelDate;
     private TextInputEditText travelLocationName;
+    private TextInputEditText travelDescrizione;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,7 @@ public class NewAlbumActivity extends AppCompatActivity {
         travelName = (TextInputEditText) findViewById(R.id.travelNameInput);
         travelDate = (TextInputEditText) findViewById(R.id.travelDateInput);
         travelLocationName = (TextInputEditText) findViewById(R.id.travelLocationNameInput);
+        travelDescrizione = (TextInputEditText) findViewById(R.id.travelDescrizioneInput);
 
         final Calendar dateOutCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener dateOutPicker = new DatePickerDialog.OnDateSetListener() {
@@ -97,6 +101,28 @@ public class NewAlbumActivity extends AppCompatActivity {
                 travel.setDateOut(dateOutCalendar.getTimeInMillis());
                 //travel.setDateIn(dateInCalendar.getTimeInMillis());
                 travel.getLocation().setName(travelLocationName.getText().toString());
+                travel.setDescrizione(travelDescrizione.getText().toString());
+
+                //CHECK SE VIENE INSERITA UNA LOCALITA' DIVERSA DA QUELLE PREDEFINITE == DA QUELLE NON PRESENTI NELLA GALLERIA
+
+                Log.d("Comments", travelLocationName.getText().toString().toUpperCase());
+                if (travelLocationName.getText().toString().toUpperCase().equals("PARIGI")
+                        || travelLocationName.getText().toString().toUpperCase().equals("ROMA")
+                        || travelLocationName.getText().toString().toUpperCase().equals("BARI")) {
+                    Toast.makeText(getApplicationContext(), "Verranno caricate automaticamente tutte le foto scattate intorno a  "
+                                    + travelLocationName.getText().toString()
+                                    + ", nel periodo selezionato.",
+
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Non è stata trovata nessuna foto scattata a "
+                                    + travelLocationName.getText().toString()
+                                    + ", nel periodo selezionato"
+                                    + ". Sarà caricato l'album di default.",
+
+                            Toast.LENGTH_LONG).show();
+                }
+
 
                 DBHelper.getInstance(getApplicationContext()).insertTravel(travel);
                 finish();

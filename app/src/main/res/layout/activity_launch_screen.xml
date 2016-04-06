@@ -31,6 +31,22 @@
             android:focusableInTouchMode="false"
             android:padding="0dp" />
 
+        <RelativeLayout
+            android:id="@+id/loadingPanel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="40dp"
+            android:gravity="center" >
+
+            <ProgressBar
+                android:id="@+id/pb"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:indeterminate="true"
+
+                />
+        </RelativeLayout>
+
     </LinearLayout>
 
     <RelativeLayout

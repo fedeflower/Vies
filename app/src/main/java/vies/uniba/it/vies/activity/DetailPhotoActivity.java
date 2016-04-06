@@ -1,6 +1,8 @@
 package vies.uniba.it.vies.activity;
 
 import android.content.res.Configuration;
+import android.graphics.Matrix;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,9 +13,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -45,6 +50,13 @@ public class DetailPhotoActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+
+    //per zoom
+    private ImageView iv;
+    private Matrix matrix = new Matrix();
+    private float scale = 1f;
+    private ScaleGestureDetector SGD;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,9 +105,29 @@ public class DetailPhotoActivity extends AppCompatActivity {
             }
         });
 
+        //zoom
+        iv = (ImageView)findViewById(R.id.detail_image);
+        SGD = new ScaleGestureDetector(this,new ScaleListener());
 
     }
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        Toast.makeText(this, "touch",Toast.LENGTH_LONG).show();
+        SGD.onTouchEvent(ev);
+        return true;
+    }
 
+    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+        @Override
+        public boolean onScale(ScaleGestureDetector detector) {
+            scale *= detector.getScaleFactor();
+            scale = Math.max(0.1f, Math.min(scale, 5.0f));
+
+            matrix.setScale(scale, scale);
+            iv.setImageMatrix(matrix);
+            return true;
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -111,7 +143,7 @@ public class DetailPhotoActivity extends AppCompatActivity {
             case android.R.id.home:
                 finish();
                 return true;
-            case R.id.action_settings:
+            case R.id.openMap:
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -173,6 +205,7 @@ public class DetailPhotoActivity extends AppCompatActivity {
             this.url = args.getString(ARG_IMG_URL);
         }
 
+
         /**
          * Returns a new instance of this fragment for the given section
          * number.
@@ -206,7 +239,7 @@ public class DetailPhotoActivity extends AppCompatActivity {
             Glide.with(getActivity()).load(url).thumbnail(0.1f).into(imageView);
 
             return rootView;
-        }
 
+        }
     }
 }

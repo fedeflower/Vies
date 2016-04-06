@@ -35,4 +35,9 @@
         <item>GPS Longitude Ref</item>
         <item>GPS Longitude</item>
     </string-array>
+
+    <string-array name="inserisci_foto">
+        <item>- Utenti Vies Social</item>
+        <item>- Galleria Dispositivo</item>
+        </string-array>
 </resources>

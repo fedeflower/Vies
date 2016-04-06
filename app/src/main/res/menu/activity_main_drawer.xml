@@ -4,11 +4,11 @@
     <group android:id="@+id/grp1" android:checkableBehavior="single">
         <item
             android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_camera_alt_black_24px"
             android:title="Avvia Fotocamera" />
         <item
             android:id="@+id/nav_tutorial"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_video_library_black_24px"
             android:title="Quick Tutorial" />
         <item
             android:id="@+id/nav_about"

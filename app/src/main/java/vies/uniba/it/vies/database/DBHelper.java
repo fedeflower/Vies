@@ -93,6 +93,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("name", t.getName());
         contentValues.put("dateOut", t.getDateOut());
         contentValues.put("descrizione", t.getDescrizione());
+        Log.w("Comments", "inserimento " + t.getDescrizione());
         contentValues.put("locationName", t.getLocation().getName());
         //contentValues.put("lat", t.getLocation().getLatLng().latitude);
         //contentValues.put("lon", t.getLocation().getLatLng().longitude);
@@ -116,6 +117,7 @@ public class DBHelper extends SQLiteOpenHelper {
             t.setDateOut(res.getLong(res.getColumnIndex("dateOut")));
             //t.setDateIn(res.getLong(res.getColumnIndex("dateIn")));
             t.setDescrizione(res.getString(res.getColumnIndex("descrizione")));
+            Log.w("Comments", ""+res.getString(res.getColumnIndex("descrizione")));
 
             Location l = new Location(res.getString(res.getColumnIndex("locationName")));
             l.setLatLng(new LatLng(res.getDouble(res.getColumnIndex("lat")), res.getDouble(res.getColumnIndex("lon"))));

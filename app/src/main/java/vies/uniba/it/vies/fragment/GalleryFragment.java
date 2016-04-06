@@ -79,7 +79,7 @@ public GalleryFragment(int color,String album_name,String album_location) {
             frameLayout.setBackgroundColor(color);
 
  final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.gallery_recycler);
-            recyclerView.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 3));
+            recyclerView.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 3)); //numero riquadri
             recyclerView.setHasFixedSize(true);
             Log.d("Comments", album_name);
            // Log.d("Comments", Boolean.toString(Prefs.getInstance(getActivity().getBaseContext()).getBoolean("album2_"+album_name, false)));

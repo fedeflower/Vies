@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -177,6 +178,8 @@ public class MainActivity extends AppCompatActivity
 
         i.putExtra("album_name",item.getName());
 		i.putExtra("album_location", item.getLocation().getName());
+        Log.w("Comments", "" + item.getDescrizione());
+        i.putExtra("descrizione", item.getDescrizione());
         //startActivity(i, bundle);
         startActivity(i);
     }
@@ -200,5 +203,24 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(this, LoginActivity.class));
             // first time task
         } else Log.d("Comments", "Already");
+    }
+
+    //per l'icona a forma di mappa nella barra in alto
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+             case R.id.openWorld:
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

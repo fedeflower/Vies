@@ -2,6 +2,7 @@ package vies.uniba.it.vies.activity;
 
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -17,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -30,16 +32,19 @@ import vies.uniba.it.vies.fragment.GalleryFragment;
 import vies.uniba.it.vies.fragment.MapFragment;
 import vies.uniba.it.vies.model.Album;
 import vies.uniba.it.vies.utils.App;
+import vies.uniba.it.vies.utils.viesAlert;
 
 public class TabGMActivity extends AppCompatActivity {
     
  String album_name;
     String album_location;
+    String descrizione;
 
     ViewPager viewPager;
     ViewPagerAdapter adapter;
 
     ImageView copertina;
+    TextView descrizioneView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,7 @@ public class TabGMActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tab_gm);
         album_name=getIntent().getStringExtra("album_name");
         album_location=getIntent().getStringExtra("album_location");
+        descrizione=getIntent().getStringExtra("descrizione");
         final Toolbar toolbar = (Toolbar) findViewById(R.id.htab_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(album_name);
@@ -88,8 +94,9 @@ public class TabGMActivity extends AppCompatActivity {
 
                         break;
                     case 1:
-                        if(MapFragment.getnoTag()){
-                        Toast.makeText(App.getContext(), "Nessun GeoTag presente.", Toast.LENGTH_LONG).show();}
+                        if (MapFragment.getnoTag()) {
+                            Toast.makeText(App.getContext(), "Nessun GeoTag presente.", Toast.LENGTH_LONG).show();
+                        }
                         break;
                 }
 
@@ -136,24 +143,36 @@ public class TabGMActivity extends AppCompatActivity {
                 viewPager.setCurrentItem(tabLayout.getSelectedTabPosition());
                 //setupViewPager(viewPager);
                 //Intent i = new Intent(getApplicationContext(), NewAlbumActivity.class);
-                //startActivity(i);
+                //startActivity(i);*/
 
 
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(App.getContext());
-                alertDialogBuilder.setTitle("Inserisci Nuova Foto").setItems(R.array.home_activities,
-                        new DialogInterface.OnClickListener(){
-                            @Override public void onClick(DialogInterface dialogInterface, int i){
-                                dialogListener.onClick(i);
-                            }
-                        });*/
+                final View viewfinal=view;
 
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(view.getContext());
+                alertDialogBuilder.setTitle("Inserisci nuova foto da").setItems(R.array.inserisci_foto,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                sceltaInserisciFoto(i,viewfinal.getContext());
+                                }
+                        });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show alert
+                alertDialog.show();
             }
         });
+
+        descrizioneView = (TextView) findViewById(R.id.descrizione_album);
+        descrizioneView.setText(""+descrizione);
+
+
         String[] ALBUM=Album.getAlbum(album_location);
         int random_no = new Random().nextInt(ALBUM.length);
         String img = (ALBUM[random_no]);
     copertina = (ImageView) findViewById(R.id.htab_header);
         Glide.with(this).load(img).thumbnail(0.1f).into(copertina);
+
 
     }
 
@@ -182,9 +201,9 @@ public class TabGMActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
-                return true;
+                return true; /*
             case R.id.action_settings:
-                return true;
+                return true; */
             case R.id.action_add:
                 return true;
             case R.id.action_remove:
@@ -232,6 +251,17 @@ public class TabGMActivity extends AppCompatActivity {
         }
     }
 
-
+    public void sceltaInserisciFoto(int i,Context ct) {
+        switch (i){
+            case 0:{ //caricare activity
+                viesAlert.openAlert(ct);
+                break;
+            }
+            case 1:{
+                viesAlert.openAlert(ct);
+                break;
+            }
+        }
+    }
 
 }

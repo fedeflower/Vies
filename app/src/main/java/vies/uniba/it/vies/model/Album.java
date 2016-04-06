@@ -27,25 +27,33 @@ import vies.uniba.it.vies.utils.App;
  */
 public class Album {
     public static String BARI[] = {
-            "https://dl.dropboxusercontent.com/u/66373804/VIES/Bari-Lungomare.jpg",
+            /*"https://dl.dropboxusercontent.com/u/66373804/VIES/Bari-Lungomare.jpg",
             "https://dl.dropboxusercontent.com/u/66373804/VIES/Bari-Petruzzelli.jpg",
-            "https://dl.dropboxusercontent.com/u/66373804/VIES/Bari-Basilica.jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/Bari-Basilica.jpg",*/
             "https://dl.dropboxusercontent.com/u/66373804/VIES/Bari-Castello.jpg"};
     public static String PARIGI[] = {
-            "https://dl.dropboxusercontent.com/u/66373804/VIES/Parigi-Louvre.jpg",
-            "https://dl.dropboxusercontent.com/u/66373804/VIES/Parigi-Monnalisa.jpg",
-            "https://dl.dropboxusercontent.com/u/66373804/VIES/Parigi-Montmartre.jpg",
-            "https://dl.dropboxusercontent.com/u/66373804/VIES/Parigi-Notre_Dame.jpg",
-            "https://dl.dropboxusercontent.com/u/66373804/VIES/Parigi-Torre_Eiffel.jpg",
-            "https://dl.dropboxusercontent.com/u/66373804/VIES/Parigi-Arco_di_Trionfo.jpg"};
+    /*"https://dl.dropboxusercontent.com/u/66373804/VIES/Parigi-Louvre.jpg",
+   /* "http//dl.dropboxusercontent.com/u/66373804/VIES/Parigi-Monnalisa.jpg",
+    "https://dl.dropboxusercontent.com/u/66373804/VIES/Parigi-Montmartre.jpg",
+    "https://dl.dropboxusercontent.com/u/66373804/VIES/Parigi-Notre_Dame.jpg",
+    "https://dl.dropboxusercontent.com/u/66373804/VIES/Parigi-Torre_Eiffel.jpg",*/
+    "https://dl.dropboxusercontent.com/u/66373804/VIES/Parigi-Arco_di_Trionfo.jpg"};
     public static String ROMA[] = {
-            "https://dl.dropboxusercontent.com/u/66373804/VIES/Roma-Piazza_Navona.jpg",
+           /* "https://dl.dropboxusercontent.com/u/66373804/VIES/Roma-Piazza_Navona.jpg",
             "https://dl.dropboxusercontent.com/u/66373804/VIES/Roma-Piazza_di_Spagna.jpg",
             "https://dl.dropboxusercontent.com/u/66373804/VIES/Roma-San_Pietro.jpg",
             "https://dl.dropboxusercontent.com/u/66373804/VIES/Roma-Colosseo.jpg",
-            "https://dl.dropboxusercontent.com/u/66373804/VIES/Roma-Fontana_di_Trevi.jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/Roma-Fontana_di_Trevi.jpg",*/
             "https://dl.dropboxusercontent.com/u/66373804/VIES/Roma-Fori_Imperiali.jpg"};
-    public static String DEF[] = {"http://images.wired.it/wp-content/uploads/2016/01/1453282239_gatto-9-600x335.jpg"};
+    public static String DEF[] = {
+           /* "https://dl.dropboxusercontent.com/u/66373804/VIES/Gattino%20(5).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/Gattino%20(1).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/Gattino%20(2).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/Gattino%20(3).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/Gattino%20(4).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/Gattino%20(6).jpg",*/
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/Gattino%20(7).jpg" };
+
     public static List<String> tags = Arrays.asList(App.getContext().getResources().getStringArray(R.array.tags));
     public static Map<String, String> values = new HashMap<String, String>();
 

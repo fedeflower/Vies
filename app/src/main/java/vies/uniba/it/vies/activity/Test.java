@@ -21,7 +21,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -31,56 +33,34 @@ import java.util.Random;
 import vies.uniba.it.vies.R;
 import vies.uniba.it.vies.adapter.GalleryAdapter;
 import vies.uniba.it.vies.adapter.RecyclerItemClickListener;
+import vies.uniba.it.vies.database.DBHelper;
 import vies.uniba.it.vies.model.Album;
 import vies.uniba.it.vies.model.ImageModel;
 import vies.uniba.it.vies.utils.App;
 import vies.uniba.it.vies.utils.Utils;
 
-public class TrendingActivity extends AppCompatActivity {
+public class Test extends AppCompatActivity {
     RecyclerView recyclerView;
     MapView mMapView;
     private GoogleMap googleMap;
+    String album_name;
+    String album_location;
     private ArrayList<ImageModel> data = new ArrayList<>();
+    private List<LatLng> pos=new ArrayList<>();
     boolean showFAB = true;
-
-    String [] coords={
-            "31.2243084,120.9162742",
-            "39.9390731,116.1172682",
-            "41.0055005,28.7319893",
-            "35.6735408,139.5703019",
-            "55.74929,37.0720805",
-            "-23.6815315,-46.8754945",
-            "22.5555518,113.7736804",
-            "37.5652894,126.8494641",
-            "30.0596185,31.1884238",
-            "19.3910038,-99.2837002",
-            "40.7058316,-74.2581938",
-            "51.5287352,-0.3817821",
-            "10.769,106.4141616",
-            "22.3580723,113.8408197",
-            "-22.9103552,-43.7285297",
-            "1.3150701,103.7069311",
-            "34.0207504,-118.6919263",
-            "35.4620696,139.5492096",
-            "35.1646501,128.9317138",
-            "52.507629,13.1449537",
-            "40.4381311,-3.8196221",
-            "40.3915658,-3.6560971",
-            "41.9102415,12.3959126",
-            "45.4628329,9.1076921"
-    };
-
-    String [] foto = Album.TRENDING;
-
+    private Marker lastMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trending);
 
+        album_name = getIntent().getStringExtra("album_name");
+        album_location = getIntent().getStringExtra("album_location");
+
         final Toolbar toolbar = (Toolbar) findViewById(R.id.gmail_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("ViesTrending");
+        getSupportActionBar().setTitle("ViesSocial");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
@@ -97,42 +77,24 @@ public class TrendingActivity extends AppCompatActivity {
 
         googleMap = mMapView.getMap();
 
-        List<LatLng> pos=new ArrayList<>();
-
-        int random= new Random().nextInt(3)+3;
-
-        for(int i=0;i<random;i++) {
-            int random_no = new Random().nextInt(coords.length);
-            String img = (coords[random_no]);
-
-            int random_foto = new Random().nextInt(foto.length);
-
-            pos.add(new LatLng(Double.parseDouble(img.split(",")[0]), Double.parseDouble(img.split(",")[1])));
-            ImageModel imageModel = new ImageModel();
-            imageModel.setName(Utils.getNameFileFromUrl(foto[random_foto]));
-            imageModel.setUrl(foto[random_foto]);
-            data.add(imageModel);
-        }
-
-        TextView bottom=(TextView) findViewById(R.id.bottom_text);
-        TextView bottom2=(TextView) findViewById(R.id.found_text);
-        bottom2.setText("Ci sono " + random + " trending foto...");
-        bottom.setText("Ecco gli scatti più scelti su Vies!");
-
-        if(pos!=null) {
-            for (LatLng posz : pos) {
-
-                googleMap.addMarker(new MarkerOptions().position(posz).title("Marker"));
-            }
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos.get(0), 0));
-        }
-        else{
-            Toast.makeText(App.getContext(), "Nessun GeoTag presente.", Toast.LENGTH_LONG).show();
-        }
-
         recyclerView = (RecyclerView) findViewById(R.id.trending_recycler);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3)); //numero riquadri
         recyclerView.setHasFixedSize(true);
+
+        pos = DBHelper.getInstance(this).getCoord(album_location.toUpperCase());
+
+
+        if (pos != null) {
+            for (LatLng posz : pos) {
+                googleMap.addMarker(new MarkerOptions().position(posz).title("Marker"));
+            }
+        }
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos.get(0), 12));
+
+
+
+
+
 
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this,
                 new RecyclerItemClickListener.OnItemClickListener() {
@@ -140,26 +102,27 @@ public class TrendingActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(View view, int position) {
 
+
                         Animation animFadein = AnimationUtils.loadAnimation(view.getContext(), R.anim.fade_in);
                         Animation animFadeout = AnimationUtils.loadAnimation(view.getContext(), R.anim.fade_out);
                         recyclerView.getLayoutManager().findViewByPosition(position).startAnimation(animFadeout);
                         recyclerView.getLayoutManager().findViewByPosition(position).startAnimation(animFadein);
 
+
                         Intent intent = new Intent(view.getContext(), DetailPhotoActivity.class);
                         intent.putParcelableArrayListExtra("data", data);
-                        intent.putExtra("album_name", "Trending Now");
+                        intent.putExtra("album_name", "Social");
                         intent.putExtra("pos", position);
                         startActivity(intent);
+
                     }
                 }));
 
+        final TextView bottom=(TextView) findViewById(R.id.bottom_text);
+
+
         GalleryAdapter adapter = new GalleryAdapter(getBaseContext(), data);
         recyclerView.setAdapter(adapter);
-
-
-        /**
-         * Bottom Sheet
-         */
 
 
         // To handle FAB animation upon entrance and exit
@@ -186,6 +149,45 @@ public class TrendingActivity extends AppCompatActivity {
             }
         });
 
+        googleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+            @Override
+            public void onMapLongClick(LatLng latLng) {
+                if (lastMarker != null) lastMarker.remove();
+                data.clear();
+                lastMarker = googleMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                TextView tx = (TextView) findViewById(R.id.found_text);
+                String Lat = "Lat:" + latLng.latitude;
+                String Long = "Long:" + latLng.longitude;
+                bottom.setText("Nelle vicinanze di "+Lat.substring(0, 11) + " - " + Long.substring(0, 12));
+
+
+                String IMGS[] = Album.SOCIAL;
+
+                int random_volte = new Random().nextInt(6);
+
+                for (int i = 0; i < random_volte; i++) {
+                    int random_no = new Random().nextInt(IMGS.length);
+                    ImageModel imageModel = new ImageModel();
+                    imageModel.setName(Utils.getNameFileFromUrl(IMGS[random_no]));
+                    imageModel.setUrl(IMGS[random_no]);
+                    data.add(imageModel);
+                }
+
+                GalleryAdapter adapter = new GalleryAdapter(getBaseContext(), data);
+                recyclerView.setAdapter(adapter);
+                tx.setText("Guarda "+random_volte + " scatti di altri utenti...");
+
+                Toast.makeText(getBaseContext(), "Trovate " + random_volte + " foto nei dintorni.",
+                        Toast.LENGTH_LONG).show();
+
+
+/* DA RICONTROLLARE
+                if (behavior.getState() == behavior.STATE_COLLAPSED) {
+                    fab.startAnimation(shrinkAnimation);
+                    behavior.setState(behavior.STATE_EXPANDED);
+                }*/
+            }
+        });
 
         fab.setRotation(-90);
         fab.setVisibility(View.VISIBLE);

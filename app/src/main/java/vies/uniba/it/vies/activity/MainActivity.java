@@ -47,13 +47,12 @@ public class MainActivity extends AppCompatActivity
         introIntent = new Intent(MainActivity.this, PagerActivity.class);
         introIntent.putExtra(PREF_USER_FIRST_TIME, isUserFirstTime);
 
-        relog();
-
         if (isUserFirstTime){
             DBHelper.getInstance(this).riempiDB();
             startActivity(introIntent);
             }
 
+        relog();
         //run();
 
         setContentView(R.layout.activity_main);
@@ -134,9 +133,15 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-           viesAlert.openAlert(this);
+            Intent intent=new Intent(this, Test.class);
+            intent.putExtra("album_name","nome_album");
+            intent.putExtra("album_location","BARI");
+            startActivity(intent);
+          // viesAlert.openAlert(this);
         } else if (id == R.id.nav_trending) {
             startActivity(new Intent(this, TrendingActivity.class));
+        } else if (id == R.id.nav_world) {
+            startActivity(new Intent(this, WorldActivity.class));
         } else if (id == R.id.nav_tutorial) {
             startActivity(introIntent);
         } else if (id == R.id.nav_about) {
@@ -214,25 +219,6 @@ public class MainActivity extends AppCompatActivity
         } else Log.d("Comments", "Already");
     }
 
-    //per l'icona a forma di mappa nella barra in alto
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-             case R.id.openWorld:{
-                 startActivity(new Intent(this, WorldActivity.class));
-                 return true;
-             }
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

@@ -73,13 +73,21 @@
         <activity
             android:name=".activity.WorldActivity"
             android:label="Vies"
-            android:screenOrientation="fullSensor"/>
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.TrendingActivityOld"
+            android:label="Vies"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.SocialActivity"
+            android:label="Vies"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.TrendingActivity"
             android:label="Vies"
-            android:screenOrientation="fullSensor"/>
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.SocialActivity"
+            android:name=".activity.Test"
             android:label="Vies"
             android:screenOrientation="portrait"/>
     </application>

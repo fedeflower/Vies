@@ -63,13 +63,42 @@ public class Album {
             "12.4815","12.473072222222221","12.458797222222222","12.4919","12.483036111111112","12.484030555555556"};
 
     public static String DEF[] = {
-           "https://dl.dropboxusercontent.com/u/66373804/VIES/Gattino%20(5).jpg",
-            "https://dl.dropboxusercontent.com/u/66373804/VIES/Gattino%20(1).jpg",
-            "https://dl.dropboxusercontent.com/u/66373804/VIES/Gattino%20(2).jpg",
-            "https://dl.dropboxusercontent.com/u/66373804/VIES/Gattino%20(3).jpg",
-            "https://dl.dropboxusercontent.com/u/66373804/VIES/Gattino%20(4).jpg",
-            "https://dl.dropboxusercontent.com/u/66373804/VIES/Gattino%20(6).jpg",
-            "https://dl.dropboxusercontent.com/u/66373804/VIES/Gattino%20(7).jpg" };
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/Cuccioli%20(6).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/Cuccioli%20(2).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/Cuccioli%20(3).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/Cuccioli%20(4).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/Cuccioli%20(5).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/Cuccioli%20(1).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/Cuccioli%20(7).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/Cuccioli%20(8).jpg"
+            };
+
+    public static String TRENDING[] = {
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/trending%20(1).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/trending%20(2).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/trending%20(3).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/trending%20(4).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/trending%20(5).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/trending%20(6).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/trending%20(7).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/trending%20(8).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/trending%20(9).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/trending%20(10).jpg"
+    };
+
+    public static String SOCIAL[] = {
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/social%20(1).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/social%20(2).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/social%20(3).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/social%20(4).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/social%20(5).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/social%20(6).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/social%20(7).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/social%20(8).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/social%20(9).jpg",
+            "https://dl.dropboxusercontent.com/u/66373804/VIES/social%20(10).jpg"
+
+    };
 
     public static List<String> tags = Arrays.asList(App.getContext().getResources().getStringArray(R.array.tags));
     public static Map<String, String> values = new HashMap<String, String>();

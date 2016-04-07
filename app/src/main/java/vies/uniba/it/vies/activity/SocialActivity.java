@@ -118,13 +118,7 @@ public class SocialActivity extends AppCompatActivity {
                     String Long = "Long:" + latLng.longitude;
                     tx.setText(Lat.substring(0, 12) + " - " + Long.substring(0, 12));
 
-                    String IMGS[] = {
-                            "https://dl.dropboxusercontent.com/u/66373804/VIES/Parigi-Louvre.jpg",
-                            "https://dl.dropboxusercontent.com/u/66373804/VIES/Parigi-Monnalisa.jpg",
-                            "https://dl.dropboxusercontent.com/u/66373804/VIES/Parigi-Montmartre.jpg",
-                            "https://dl.dropboxusercontent.com/u/66373804/VIES/Parigi-Notre_Dame.jpg",
-                            "https://dl.dropboxusercontent.com/u/66373804/VIES/Parigi-Torre_Eiffel.jpg",
-                            "https://dl.dropboxusercontent.com/u/66373804/VIES/Parigi-Arco_di_Trionfo.jpg"};
+                    String IMGS[] = Album.SOCIAL;
 
                     int random_volte = new Random().nextInt(IMGS.length);
 
@@ -143,8 +137,6 @@ public class SocialActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                 }
             });
-
-            final FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frame);
 
             recyclerView = (RecyclerView) findViewById(R.id.social_recycler);
             recyclerView.setLayoutManager(new GridLayoutManager(this, 2)); //numero riquadri

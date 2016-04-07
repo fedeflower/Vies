@@ -1,18 +1,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
     <item
-        android:id="@+id/action_add"
-        android:title="add"
+        android:id="@+id/action_edit_album"
+        android:title="Gestisci Album"
         android:orderInCategory="100"
-        android:icon="@android:drawable/ic_menu_add"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
     <item
-        android:id="@+id/action_remove"
-        android:title="remove"
+        android:id="@+id/action_delete_album"
+        android:title="Cancella Album"
         android:orderInCategory="200"
-        android:icon="@drawable/ic_delete_white_24px"
-
-        app:showAsAction="always" />
+        app:showAsAction="never" />
 </menu>

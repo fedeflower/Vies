@@ -202,12 +202,10 @@ public class TabGMActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
-                return true; /*
-            case R.id.action_settings:
-                return true; */
-            case R.id.action_add:
                 return true;
-            case R.id.action_remove:
+            case R.id.action_edit_album:
+                return true;
+            case R.id.action_delete_album:
                 return true;
         }
         return super.onOptionsItemSelected(item);

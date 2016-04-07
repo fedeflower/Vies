@@ -54,7 +54,8 @@ public class WorldActivity extends AppCompatActivity {
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Mondo");
+        getSupportActionBar().setTitle("ViesMap");
+        getSupportActionBar().setSubtitle("Le mie foto intorno al mondo");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mMapView = (MapView) findViewById(R.id.worldMap);

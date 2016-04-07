@@ -1,11 +1,8 @@
 package vies.uniba.it.vies.activity;
 
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -36,12 +32,11 @@ import vies.uniba.it.vies.model.ImageModel;
 import vies.uniba.it.vies.utils.App;
 import vies.uniba.it.vies.utils.Utils;
 
-public class TrendingActivity extends AppCompatActivity {
-    RecyclerView recyclerView;
+public class TrendingActivityOld extends AppCompatActivity {
     MapView mMapView;
     private GoogleMap googleMap;
+    private RecyclerView recyclerView;
     private ArrayList<ImageModel> data = new ArrayList<>();
-    boolean showFAB = true;
 
     String [] coords={
             "31.2243084,120.9162742",
@@ -71,18 +66,15 @@ public class TrendingActivity extends AppCompatActivity {
     };
 
     String [] foto = Album.TRENDING;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trending);
+        setContentView(R.layout.activity_trending_old);
 
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.gmail_toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("ViesTrending");
+        getSupportActionBar().setTitle("Trending");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
         mMapView = (MapView) findViewById(R.id.trendingMap);
         mMapView.onCreate(savedInstanceState);
@@ -96,7 +88,6 @@ public class TrendingActivity extends AppCompatActivity {
         }
 
         googleMap = mMapView.getMap();
-
         List<LatLng> pos=new ArrayList<>();
 
         int random= new Random().nextInt(3)+3;
@@ -114,10 +105,7 @@ public class TrendingActivity extends AppCompatActivity {
             data.add(imageModel);
         }
 
-        TextView bottom=(TextView) findViewById(R.id.bottom_text);
-        TextView bottom2=(TextView) findViewById(R.id.found_text);
-        bottom2.setText("Ci sono " + random + " trending foto...");
-        bottom.setText("Ecco gli scatti più scelti su Vies!");
+        Toast.makeText(App.getContext(), "Ci sono "+random+" trending foto.", Toast.LENGTH_LONG).show();
 
         if(pos!=null) {
             for (LatLng posz : pos) {
@@ -127,11 +115,11 @@ public class TrendingActivity extends AppCompatActivity {
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos.get(0), 0));
         }
         else{
-            Toast.makeText(App.getContext(), "Nessun GeoTag presente.", Toast.LENGTH_LONG).show();
+                Toast.makeText(App.getContext(), "Nessun GeoTag presente.", Toast.LENGTH_LONG).show();
         }
 
         recyclerView = (RecyclerView) findViewById(R.id.trending_recycler);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 3)); //numero riquadri
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2)); //numero riquadri
         recyclerView.setHasFixedSize(true);
 
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this,
@@ -156,106 +144,16 @@ public class TrendingActivity extends AppCompatActivity {
         GalleryAdapter adapter = new GalleryAdapter(getBaseContext(), data);
         recyclerView.setAdapter(adapter);
 
-
-        /**
-         * Bottom Sheet
-         */
-
-
-        // To handle FAB animation upon entrance and exit
-        final Animation growAnimation = AnimationUtils.loadAnimation(this, R.anim.simple_grow);
-        final Animation shrinkAnimation = AnimationUtils.loadAnimation(this, R.anim.simple_shrink);
-        CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.gmail_coordinator);
-        View bottomSheet = coordinatorLayout.findViewById(R.id.gmail_bottom_sheet);
-
-        final BottomSheetBehavior behavior = BottomSheetBehavior.from(bottomSheet);
-
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.gmail_fab);
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(behavior.getState()==behavior.STATE_COLLAPSED){
-                    fab.startAnimation(shrinkAnimation);
-                    behavior.setState(behavior.STATE_EXPANDED);
-
-                } else {
-                    behavior.setState(behavior.STATE_COLLAPSED);
-                    fab.startAnimation(shrinkAnimation);
-                }
-            }
-        });
-
-
-        fab.setRotation(-90);
-        fab.setVisibility(View.VISIBLE);
-        fab.startAnimation(growAnimation);
-
-
-        shrinkAnimation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                fab.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-
-
-        behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-            @Override
-            public void onStateChanged(@NonNull View bottomSheet, int newState) {
-
-                switch (newState) {
-
-                    case BottomSheetBehavior.STATE_DRAGGING:
-                        if (showFAB)
-                            fab.startAnimation(shrinkAnimation);
-                        break;
-
-                    case BottomSheetBehavior.STATE_COLLAPSED:
-                        showFAB = true;
-                        fab.setVisibility(View.VISIBLE);
-                        fab.setRotation(-90);
-                        fab.startAnimation(growAnimation);
-                        break;
-
-                    case BottomSheetBehavior.STATE_EXPANDED:
-                        showFAB = true;
-                        fab.setVisibility(View.VISIBLE);
-                        fab.setRotation(90);
-                        fab.startAnimation(growAnimation);
-                        break;
-
-
-                }
-
-            }
-
-            @Override
-            public void onSlide(View bottomSheet, float slideOffset) {
-
-            }
-        });
-
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                supportFinishAfterTransition();
+                finish();
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
+
 }

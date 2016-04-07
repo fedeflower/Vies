@@ -47,11 +47,15 @@ public class MainActivity extends AppCompatActivity
         introIntent = new Intent(MainActivity.this, PagerActivity.class);
         introIntent.putExtra(PREF_USER_FIRST_TIME, isUserFirstTime);
 
-        if (isUserFirstTime)
-            startActivity(introIntent);
-
-        run();
         relog();
+
+        if (isUserFirstTime){
+            DBHelper.getInstance(this).riempiDB();
+            startActivity(introIntent);
+            }
+
+        //run();
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -130,7 +134,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            viesAlert.openAlert(this);
+           viesAlert.openAlert(this);
+        } else if (id == R.id.nav_trending) {
+            startActivity(new Intent(this, TrendingActivity.class));
         } else if (id == R.id.nav_tutorial) {
             startActivity(introIntent);
         } else if (id == R.id.nav_about) {
@@ -184,23 +190,26 @@ public class MainActivity extends AppCompatActivity
         startActivity(i);
     }
 
+    /*
     private void run() {
         if (Prefs.getInstance(this).getBoolean("my_first_time", true)) {
             //the app is being launched for first time, do something
             Log.d("Comments", "First time");
             startActivity(new Intent(this, LoginActivity.class));
+            finish();
             // first time task
 
             // record the fact that the app has been started at least once
             Prefs.getInstance(this).edit().putBoolean("my_first_time", false).commit();
         }
     }
-
+*/
     private void relog() {
         if (!Prefs.getInstance(this).getBoolean("logged_in", false)) {
             //the app is being launched for first time, do something
             Log.d("Comments", "Relog");
             startActivity(new Intent(this, LoginActivity.class));
+            finish();
             // first time task
         } else Log.d("Comments", "Already");
     }
@@ -218,8 +227,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-             case R.id.openWorld:
-                return true;
+             case R.id.openWorld:{
+                 startActivity(new Intent(this, WorldActivity.class));
+                 return true;
+             }
+
         }
         return super.onOptionsItemSelected(item);
     }

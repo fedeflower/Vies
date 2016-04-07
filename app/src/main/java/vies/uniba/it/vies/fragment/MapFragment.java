@@ -5,6 +5,7 @@ package vies.uniba.it.vies.fragment;
  */
 
 import android.annotation.SuppressLint;
+import android.location.LocationManager;
 import android.os.Bundle;
         import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -15,18 +16,22 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
         import com.google.android.gms.maps.GoogleMap;
-        import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.LocationSource;
+import com.google.android.gms.maps.MapView;
         import com.google.android.gms.maps.MapsInitializer;
         import com.google.android.gms.maps.model.BitmapDescriptorFactory;
         import com.google.android.gms.maps.model.CameraPosition;
         import com.google.android.gms.maps.model.LatLng;
         import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.List;
 
 import vies.uniba.it.vies.R;
 import vies.uniba.it.vies.activity.LaunchScreenActivity;
+import vies.uniba.it.vies.database.DBHelper;
 import vies.uniba.it.vies.model.Album;
+import vies.uniba.it.vies.model.Location;
 import vies.uniba.it.vies.model.Photo;
 
 /**
@@ -62,8 +67,6 @@ public class MapFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_map, container,
                 false);
 
-        Log.d("Comments", album_location);
-
         mMapView = (MapView) v.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
 
@@ -79,15 +82,18 @@ public class MapFragment extends Fragment {
         List<LatLng> pos=null;
         switch(album_location.toUpperCase()){
             case "BARI":{
-                pos=LaunchScreenActivity.map.get("BARI");
+                pos= DBHelper.getInstance(getContext()).getCoord("BARI");
+                //pos=LaunchScreenActivity.map.get("BARI");
                 break;
             }
             case "ROMA":{
-                pos=LaunchScreenActivity.map.get("ROMA");
+                pos= DBHelper.getInstance(getContext()).getCoord("ROMA");
+                //pos=LaunchScreenActivity.map.get("ROMA");
                 break;
             }
             case "PARIGI":{
-                pos=LaunchScreenActivity.map.get("PARIGI");
+                pos= DBHelper.getInstance(getContext()).getCoord("PARIGI");
+                //pos=LaunchScreenActivity.map.get("PARIGI");
                 break;
             }
             default:{
@@ -101,6 +107,7 @@ public class MapFragment extends Fragment {
                 noTag=false;
                 googleMap.addMarker(new MarkerOptions().position(posz).title("Marker"));
             }
+            googleMap.addPolyline(new PolylineOptions().addAll(pos));
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos.get(0), 12));
         }
         else{

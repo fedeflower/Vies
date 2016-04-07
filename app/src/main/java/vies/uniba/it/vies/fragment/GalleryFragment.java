@@ -26,6 +26,7 @@ import vies.uniba.it.vies.adapter.GalleryAdapter;
 import vies.uniba.it.vies.adapter.RecyclerItemClickListener;
 import vies.uniba.it.vies.model.Album;
 import vies.uniba.it.vies.model.ImageModel;
+import vies.uniba.it.vies.utils.Utils;
 
 /**
  * Created by Marco on 4/4/2016.
@@ -90,7 +91,7 @@ public GalleryFragment(int color,String album_name,String album_location) {
             for (int i = 0; i < IMGS.length; i++) {
 
                 ImageModel imageModel = new ImageModel();
-                imageModel.setName(getImgName(IMGS[i]));
+                imageModel.setName(Utils.getNameFileFromUrl(IMGS[i]));
                 imageModel.setUrl(IMGS[i]);
                 data.add(imageModel);
 
@@ -134,9 +135,4 @@ public GalleryFragment(int color,String album_name,String album_location) {
 
             return view;
         }
-
-    public String getImgName(String url){
-        String name = url.substring(url.lastIndexOf('/')+1, url.lastIndexOf('.'));
-        return name;
-    }
 }

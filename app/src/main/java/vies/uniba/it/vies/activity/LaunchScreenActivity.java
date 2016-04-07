@@ -68,7 +68,7 @@ public class LaunchScreenActivity extends AppCompatActivity {
 
             /*  Use this method to load background
             * data that your app needs. */
-
+/*
             photos = Album.getList("BARI");
             for (Photo photo : photos) {
                 pos.add(photo.getLocation().getLatLng());
@@ -76,18 +76,25 @@ public class LaunchScreenActivity extends AppCompatActivity {
             List<LatLng> posbari = new ArrayList<>();
             map.put("BARI", new ArrayList<LatLng>(pos));
             pos.clear();
-            photos = Album.getList("ROMA");
+            photos = Album.getList("PARIGI");
             for (Photo photo : photos) {
                 pos.add(photo.getLocation().getLatLng());
             }
             map.put("ROMA", new ArrayList<LatLng>(pos));
             pos.clear();
-            photos = Album.getList("PARIGI");
+            photos = Album.getList("ROMA");
             for (Photo photo : photos) {
                 pos.add(photo.getLocation().getLatLng());
             }
             map.put("PARIGI", new ArrayList<LatLng>(pos));
-            pos.clear();
+            pos.clear();*/
+            /*photos = Album.getList("BARI");
+            for (Photo photo : photos) {
+                pos.add(photo.getLocation().getLatLng());
+            }
+            List<LatLng> posbari = new ArrayList<>();
+            map.put("BARI", new ArrayList<LatLng>(pos));
+            pos.clear();*/
             try {
                 Thread.sleep(SPLASH_TIME);
             } catch (InterruptedException e) {

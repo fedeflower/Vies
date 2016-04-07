@@ -1,5 +1,7 @@
 package vies.uniba.it.vies.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
@@ -8,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import vies.uniba.it.vies.R;
 import vies.uniba.it.vies.model.Login;
@@ -52,6 +55,21 @@ public class LoginActivity extends AppCompatActivity {
             Prefs.getInstance(this).edit().putString("username", username).commit();
             Log.d("Comments", "Log");
             startActivity(new Intent(this, MainActivity.class));
+        }
+        else {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle("Attenzione!");
+
+            alertDialogBuilder.setMessage("Username Errato.");
+            alertDialogBuilder.setPositiveButton("Riprova",new DialogInterface.OnClickListener() {
+
+                public void onClick(DialogInterface dialog,int id) {
+                    dialog.cancel();
+                }
+
+            });
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
         }
     }
 

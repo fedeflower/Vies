@@ -4,6 +4,7 @@ package vies.uniba.it.vies.activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -254,7 +255,10 @@ public class TabGMActivity extends AppCompatActivity {
     public void sceltaInserisciFoto(int i,Context ct) {
         switch (i){
             case 0:{ //caricare activity
-                viesAlert.openAlert(ct);
+                Intent intent = new Intent(this, SocialActivity.class);
+                intent.putExtra("album_name",album_name);
+                intent.putExtra("album_location",album_location);
+                startActivity(intent);
                 break;
             }
             case 1:{

@@ -70,7 +70,18 @@
             android:name=".activity.AboutActivity"
             android:label="Vies"
             android:screenOrientation="portrait"/>
-
+        <activity
+            android:name=".activity.WorldActivity"
+            android:label="Vies"
+            android:screenOrientation="fullSensor"/>
+        <activity
+            android:name=".activity.TrendingActivity"
+            android:label="Vies"
+            android:screenOrientation="fullSensor"/>
+        <activity
+            android:name=".activity.SocialActivity"
+            android:label="Vies"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

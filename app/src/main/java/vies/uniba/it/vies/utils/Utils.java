@@ -47,4 +47,10 @@ public class Utils {
         editor.apply();
     }
 
+
+    public static String getNameFileFromUrl(String url){
+        String name = url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+        return name;
+    }
+
 }

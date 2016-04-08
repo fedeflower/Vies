@@ -19,11 +19,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 
 import vies.uniba.it.vies.R;
 import vies.uniba.it.vies.adapter.DepthPageTransformer;
+import vies.uniba.it.vies.database.DBHelper;
+import vies.uniba.it.vies.model.Album;
 import vies.uniba.it.vies.model.ImageModel;
 import vies.uniba.it.vies.utils.viesAlert;
 
@@ -47,6 +50,7 @@ public class DetailPhotoActivity extends AppCompatActivity {
     public ArrayList<ImageModel> data = new ArrayList<>();
     int pos;
     String album_name;
+    String album_location;
 
     Toolbar toolbar;
 
@@ -60,7 +64,9 @@ public class DetailPhotoActivity extends AppCompatActivity {
     private Matrix matrix = new Matrix();
     private float scale = 1f;
     private ScaleGestureDetector SGD;
+    public static LatLng posizione;
 
+    public static boolean mapClick;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +81,9 @@ public class DetailPhotoActivity extends AppCompatActivity {
         data = getIntent().getParcelableArrayListExtra("data");
         pos = getIntent().getIntExtra("pos", 0);
         album_name=getIntent().getStringExtra("album_name");
+        album_location=getIntent().getStringExtra("album_location").toUpperCase();
 
+        posizione=new LatLng(Double.parseDouble(DBHelper.getAlbumField(album_location.concat("LAT"))[pos]),Double.parseDouble(DBHelper.getAlbumField(album_location.concat("LONG"))[pos]));
         setTitle(data.get(pos).getName());
         getSupportActionBar().setSubtitle(album_name);
 
@@ -163,6 +171,8 @@ public class DetailPhotoActivity extends AppCompatActivity {
             case R.id.action_delete_album:
                 return true;
             case R.id.openMap:
+                mapClick=true;
+                finish();
                 return true;
         }
 
@@ -273,5 +283,11 @@ public class DetailPhotoActivity extends AppCompatActivity {
             return rootView;
 
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mapClick=false;
     }
 }

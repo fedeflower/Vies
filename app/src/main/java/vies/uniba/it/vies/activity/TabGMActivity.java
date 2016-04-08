@@ -15,6 +15,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,12 +24,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import vies.uniba.it.vies.R;
+import vies.uniba.it.vies.database.DBHelper;
 import vies.uniba.it.vies.fragment.GalleryFragment;
 import vies.uniba.it.vies.fragment.MapFragment;
 import vies.uniba.it.vies.model.Album;
@@ -36,8 +39,9 @@ import vies.uniba.it.vies.utils.App;
 import vies.uniba.it.vies.utils.viesAlert;
 
 public class TabGMActivity extends AppCompatActivity {
-    
- String album_name;
+
+    Integer album_id;
+    String album_name;
     String album_location;
     String descrizione;
 
@@ -46,11 +50,21 @@ public class TabGMActivity extends AppCompatActivity {
 
     ImageView copertina;
     TextView descrizioneView;
+    TabLayout tabLayout;
+
+  /*  @Override //NON FUNZIONA
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+        album_name=getIntent().getStringExtra("album_name");
+        getSupportActionBar().setTitle(album_name);
+        }*/ //by daniele
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_gm);
+
+        album_id = getIntent().getIntExtra("album_id", -1);
         album_name=getIntent().getStringExtra("album_name");
         album_location=getIntent().getStringExtra("album_location");
         descrizione=getIntent().getStringExtra("descrizione");
@@ -63,8 +77,7 @@ public class TabGMActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.htab_viewpager);
         setupViewPager(viewPager);
 
-
-        final TabLayout tabLayout = (TabLayout) findViewById(R.id.htab_tabs);
+        tabLayout = (TabLayout) findViewById(R.id.htab_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
         final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.htab_collapse_toolbar);
@@ -204,8 +217,14 @@ public class TabGMActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.action_edit_album:
+                Intent i = new Intent(getApplicationContext(), NewAlbumActivity.class);
+                i.putExtra("album_id", album_id);
+
+                startActivity(i);
                 return true;
             case R.id.action_delete_album:
+                viesAlert.deleteAlert(this,album_id);
+
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -264,6 +283,15 @@ public class TabGMActivity extends AppCompatActivity {
                 break;
             }
         }
+    }
+
+    public LatLng pos;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(DetailPhotoActivity.mapClick==true)
+        viewPager.setCurrentItem(1);
     }
 
 }

@@ -1,5 +1,6 @@
 package vies.uniba.it.vies.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -7,6 +8,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -98,7 +100,7 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            viesAlert.exitAlert(this);
         }
     }
 
@@ -186,6 +188,7 @@ public class MainActivity extends AppCompatActivity
         //bundle.putInt("travelID", item.getId());
         Intent i = new Intent(MainActivity.this, TabGMActivity.class);
 
+        i.putExtra("album_id",item.getId());
         i.putExtra("album_name",item.getName());
 		i.putExtra("album_location", item.getLocation().getName());
         Log.w("Comments", "" + item.getDescrizione());

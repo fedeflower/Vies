@@ -1,6 +1,7 @@
 package vies.uniba.it.vies.activity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
@@ -21,14 +22,20 @@ import vies.uniba.it.vies.utils.DateUtils;
 
 public class NewAlbumActivity extends AppCompatActivity {
 
+    private Integer travelId;
     private TextInputEditText travelName;
     private TextInputEditText travelDate;
     private TextInputEditText travelLocationName;
     private TextInputEditText travelDescrizione;
 
+    private Integer albumId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        travelId = getIntent().getIntExtra("album_id", -1);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_album);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -53,6 +60,19 @@ public class NewAlbumActivity extends AppCompatActivity {
             }
 
         };
+
+        albumId = getIntent().getIntExtra("album_id", -1);
+        Log.d("test", "" +  albumId);
+        if(albumId>0) {
+            Travel t = DBHelper.getInstance(this).getTravels(albumId);
+            travelName.setText(t.getName());
+            dateOutCalendar.setTimeInMillis(t.getDateOut());
+            travelDate.setText(DateUtils.formatDate(dateOutCalendar.getTime()));
+            travelLocationName.setText(t.getLocation().getName());
+            travelDescrizione.setText(t.getDescrizione());
+        }
+
+
 
 
        /* final Calendar dateInCalendar = Calendar.getInstance();
@@ -97,6 +117,7 @@ public class NewAlbumActivity extends AppCompatActivity {
                 Log.d(getClass().getCanonicalName(), "saveTravel <<START>>");
 
                 Travel travel = new Travel();
+                travel.setId(travelId);
                 travel.setName(travelName.getText().toString());
                 travel.setDateOut(dateOutCalendar.getTimeInMillis());
                 //travel.setDateIn(dateInCalendar.getTimeInMillis());
@@ -124,9 +145,13 @@ public class NewAlbumActivity extends AppCompatActivity {
                 }
 
 
-                DBHelper.getInstance(getApplicationContext()).insertTravel(travel);
-                finish();
-
+                if(albumId>0) {
+                    DBHelper.getInstance(getApplicationContext()).updateTravel(travel);
+                    finish();
+                } else {
+                    DBHelper.getInstance(getApplicationContext()).insertTravel(travel);
+                    finish();
+                }
                 Log.d(getClass().getCanonicalName(), "saveTravel <<END>>");
             }
         });

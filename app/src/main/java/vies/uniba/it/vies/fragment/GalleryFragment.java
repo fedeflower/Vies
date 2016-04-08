@@ -127,6 +127,7 @@ public GalleryFragment(int color,String album_name,String album_location) {
                             Intent intent = new Intent(getActivity(), DetailPhotoActivity.class);
                             intent.putParcelableArrayListExtra("data", data);
                             intent.putExtra("album_name",album_name);
+                            intent.putExtra("album_location",album_location);
                             intent.putExtra("pos", position);
                             startActivity(intent);
 

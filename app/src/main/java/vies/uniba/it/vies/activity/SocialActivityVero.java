@@ -163,13 +163,16 @@ public class SocialActivityVero extends AppCompatActivity {
                 String IMGS[] = Album.SOCIAL;
 
                 int random_volte = new Random().nextInt(6);
-
+                List<Integer> pescate=new ArrayList<Integer>();
                 for (int i = 0; i < random_volte; i++) {
                     int random_no = new Random().nextInt(IMGS.length);
+                    if(!pescate.contains(random_no)){
+                        pescate.add(random_no);
                     ImageModel imageModel = new ImageModel();
                     imageModel.setName(Utils.getNameFileFromUrl(IMGS[random_no]));
                     imageModel.setUrl(IMGS[random_no]);
-                    data.add(imageModel);
+                    data.add(imageModel);}
+                    else i--;
                 }
 
                 GalleryAdapter adapter = new GalleryAdapter(getBaseContext(), data);

@@ -103,17 +103,20 @@ public class TrendingActivity extends AppCompatActivity {
 
         int random= new Random().nextInt(3)+3;
 
+        List<Integer> pescate=new ArrayList<Integer>();
         for(int i=0;i<random;i++) {
             int random_no = new Random().nextInt(coords.length);
             String img = (coords[random_no]);
 
             int random_foto = new Random().nextInt(foto.length);
-
+            if(!pescate.contains(random_foto)){
+            pescate.add(random_foto);
             pos.add(new LatLng(Double.parseDouble(img.split(",")[0]), Double.parseDouble(img.split(",")[1])));
             ImageModel imageModel = new ImageModel();
             imageModel.setName(Utils.getNameFileFromUrl(foto[random_foto]));
             imageModel.setUrl(foto[random_foto]);
-            data.add(imageModel);
+            data.add(imageModel);}
+            else i--;
         }
 
         TextView bottom=(TextView) findViewById(R.id.bottom_text);

@@ -53,6 +53,8 @@ public class MapFragment extends Fragment  implements GoogleMap.OnMarkerClickLis
     public static boolean click=false;
     public static boolean noTag=false;
     List <Marker> listaMarker = new ArrayList<>();
+    private boolean zoom=false;
+    List<LatLng> pos;
 
 
     public static void setClick() {
@@ -96,7 +98,8 @@ public class MapFragment extends Fragment  implements GoogleMap.OnMarkerClickLis
         }
 
 
-        List<LatLng> pos=null;
+
+        //List<LatLng> pos=null;
         switch(album_location.toUpperCase()){
             case "BARI":{
                 pos= DBHelper.getInstance(getContext()).getCoord("BARI");
@@ -131,6 +134,7 @@ public class MapFragment extends Fragment  implements GoogleMap.OnMarkerClickLis
             }
             googleMap.addPolyline(new PolylineOptions().addAll(pos).color(Color.rgb(33,150,243)).width(20));
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos.get(0), 12));
+            zoom=false;
         }
         else{
             noTag=true;
@@ -171,6 +175,14 @@ public class MapFragment extends Fragment  implements GoogleMap.OnMarkerClickLis
     public void onResume() {
         super.onResume();
         mMapView.onResume();
+        if(!zoom){
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pos.get(0), 12));
+            zoom=true;}
+        if(DetailPhotoActivity.mapClick==true) {
+            DetailPhotoActivity.mapClick=false;
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(DetailPhotoActivity.posizione, 12));
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(DetailPhotoActivity.posizione, 15));
+        }
     }
 
     @Override
@@ -200,6 +212,7 @@ public class MapFragment extends Fragment  implements GoogleMap.OnMarkerClickLis
             Intent intent = new Intent(getActivity(), DetailPhotoActivity.class);
             intent.putParcelableArrayListExtra("data", GalleryFragment.data);
             intent.putExtra("pos",  listaMarker.lastIndexOf(myMarker));
+            intent.putExtra("album_location",album_location);
             startActivity(intent);
         }
         myMarker = marker;

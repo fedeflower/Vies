@@ -148,7 +148,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         while(res.isAfterLast() == false){
             Travel t = new Travel();
-            //t.setId(res.getInt(res.getColumnIndex("id")));
+            t.setId(res.getInt(res.getColumnIndex("id")));
             t.setName(res.getString(res.getColumnIndex("name")));
             t.setDateOut(res.getLong(res.getColumnIndex("dateOut")));
             //t.setDateIn(res.getLong(res.getColumnIndex("dateIn")));
@@ -165,6 +165,22 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return travels;
     }
+
+    public boolean updateTravel (Travel t)
+    {
+        Integer idToChange = t.getId();
+        Log.d("aaa", ""+idToChange);
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("name", t.getName());
+        contentValues.put("dateOut", t.getDateOut());
+        contentValues.put("descrizione", t.getDescrizione());
+        Log.w("Comments", "inserimento " + t.getDescrizione());
+        contentValues.put("locationName", t.getLocation().getName());
+        db.update(TRAVEL_TABLE, contentValues, "id = ?", new String[]{Integer.toString(idToChange)});
+        return true;
+    }
+
 
   /*  public Cursor getData(int id){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -198,6 +214,28 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 */
 
+    public Travel getTravels(Integer id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from " + TRAVEL_TABLE + " where id="+id, null );
+        res.moveToFirst();
+
+        Travel t = new Travel();
+        while(res.isAfterLast() == false) {
+            //t.setId(res.getInt(res.getColumnIndex("id")));  // FIXME QUESTO, CREA IL PROBLEMA DELLE FOTO
+            t.setName(res.getString(res.getColumnIndex("name")));
+            t.setDateOut(res.getLong(res.getColumnIndex("dateOut")));
+            //t.setDateIn(res.getLong(res.getColumnIndex("dateIn")));
+            t.setDescrizione(res.getString(res.getColumnIndex("descrizione")));
+            Location l = new Location(res.getString(res.getColumnIndex("locationName")));
+            l.setLatLng(new LatLng(res.getDouble(res.getColumnIndex("lat")), res.getDouble(res.getColumnIndex("lon"))));
+            t.setLocation(l);
+
+            res.moveToNext();
+        }
+
+        return t;
+    }
+
     public void riempiDB() {
         for(String album_name:Album.ALBUMS){
             String[] album=getAlbumField(album_name);
@@ -210,7 +248,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public String[] getAlbumField(String name) {
+    public static String[] getAlbumField(String name) {
         Field field=null;
         String[] album={};
         try{

@@ -100,12 +100,13 @@ public class PagerActivity extends AppCompatActivity {
         mViewPager.setCurrentItem(page);
         updateIndicators(page);
 
+
         final int color1 = ContextCompat.getColor(this, R.color.red);
         final int color2 = ContextCompat.getColor(this, R.color.green);
         final int color3 = ContextCompat.getColor(this, R.color.orange);
         final int color4 = ContextCompat.getColor(this, R.color.colorPrimary); //fede
 
-        final int[] colorList = new int[]{color1, color2, color3, color4}; //fede add color4
+        final int[] colorList = new int[]{color4, color1, color2, color3, color4}; //fede add color4
 
         final ArgbEvaluator evaluator = new ArgbEvaluator();
 
@@ -117,7 +118,7 @@ public class PagerActivity extends AppCompatActivity {
                 color update
                  */
                 // da 2 a 3, non so che fa
-                int colorUpdate = (Integer) evaluator.evaluate(positionOffset, colorList[position], colorList[position == 3 ? position : position + 1]);
+                int colorUpdate = (Integer) evaluator.evaluate(positionOffset, colorList[position], colorList[position == 4 ? position : position + 1]);
                 mViewPager.setBackgroundColor(colorUpdate);
 
             }
@@ -131,22 +132,25 @@ public class PagerActivity extends AppCompatActivity {
 
                 switch (position) {
                     case 0:
-                        mViewPager.setBackgroundColor(color1);
+                        mViewPager.setBackgroundColor(color4);
                         break;
                     case 1:
-                        mViewPager.setBackgroundColor(color2);
+                        mViewPager.setBackgroundColor(color1);
                         break;
                     case 2:
-                        mViewPager.setBackgroundColor(color3);
+                        mViewPager.setBackgroundColor(color2);
                         break;
                     case 3: //fede
+                        mViewPager.setBackgroundColor(color3);
+                        break;
+                    case 4: //fede
                         mViewPager.setBackgroundColor(color4);
                         break;
                 }
 
 
-                mNextBtn.setVisibility(position == 3 ? View.GONE : View.VISIBLE); //fede da 2 a 3
-                mFinishBtn.setVisibility(position == 3 ? View.VISIBLE : View.GONE);
+                mNextBtn.setVisibility(position == 4 ? View.GONE : View.VISIBLE); //fede da 2 a 3
+                mFinishBtn.setVisibility(position == 4 ? View.VISIBLE : View.GONE);
 
 
             }
@@ -206,15 +210,26 @@ public class PagerActivity extends AppCompatActivity {
         ImageView img;
 
         //String[] titolo_pager = Resources.getSystem().getStringArray(R.array.titolo_pager);
-        String[] titolo_pager = new String[]{"Crea un nuovo album",
+        String[] titolo_pager = new String[]{
+                "Benvenuto in VIES!",
+                "Crea un nuovo album",
                 "Scegli le tue foto",
                 "Aggiungi le foto di altri utenti",
                 "Goditi i tuoi ricordi"};
-        String[] descrizione_pager = new String[]{"Inserisci titolo, luogo e descrizione della tua esperienza",
-                "Tutti i tuoi scatti verranno aggiunti automaticamente, in base al luogo e alla data della foto! Potrai quindi gestire in maniera facile ed intuitiva la tua galleria",
+        String[] descrizione_pager = new String[]{
+                "Organizza le tue album e le tue foto, ripercorri i luoghi dei tuoi scatti e scoprine di nuovi con ViesSocial.",
+
+                "Inserisci titolo, luogo e descrizione della tua esperienza.",
+
+                "Tutti i tuoi scatti verranno aggiunti automaticamente, " +
+                        "in base al luogo e alla data della foto! " +
+                        "Potrai quindi gestire in maniera facile ed intuitiva la tua galleria.",
+
                 "Cerca le foto che ti mancano grazie alla funzione social e inseriscile nel tuo album!",
+
                 "Guarda la galleria di immagini e scopri dove hai scattato le foto grazie alla mappa interattiva"};
-        int[] bgs = new int[]{R.drawable.ic_photo_album_black_24px, R.drawable.ic_add_a_photo_black_24px, R.drawable.ic_group_add_black_24px, R.drawable.ic_person_pin_circle_black_24px};
+
+        int[] bgs = new int[]{R.drawable.logo_vies_nero, R.drawable.ic_photo_album_black_24px, R.drawable.ic_add_a_photo_black_24px, R.drawable.ic_group_add_black_24px, R.drawable.ic_person_pin_circle_black_24px};
 
         public PlaceholderFragment() {
         }
@@ -276,7 +291,7 @@ public class PagerActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 4;
+            return 5;
         }
 
         @Override
@@ -290,11 +305,12 @@ public class PagerActivity extends AppCompatActivity {
                     return "SECTION 3";
                 case 3:
                     return "SECTION 4";
+                case 4:
+                    return "SECTION 5";
             }
             return null;
         }
 
     }
-
 
 }

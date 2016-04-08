@@ -12,7 +12,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -133,7 +132,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            Intent intent=new Intent(this, Test.class);
+            Intent intent=new Intent(this, SocialActivityVero.class);
             intent.putExtra("album_name","nome_album");
             intent.putExtra("album_location","BARI");
             startActivity(intent);

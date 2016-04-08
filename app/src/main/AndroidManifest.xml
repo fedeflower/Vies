@@ -87,9 +87,10 @@
             android:label="Vies"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.Test"
+            android:name=".activity.SocialActivityVero"
             android:label="Vies"
             android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:id="@+id/grp1" android:checkableBehavior="single">
+    <group
+        android:id="@+id/grp1"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_camera"
             android:icon="@drawable/ic_camera_alt_black_24px"
             android:title="Avvia Fotocamera" />
         <item
             android:id="@+id/nav_trending"
-            android:icon="@android:drawable/ic_menu_mylocation"
+            android:icon="@drawable/ic_trending_up_black_24px"
             android:title="ViesTrending" />
         <item
             android:id="@+id/nav_world"
@@ -17,25 +19,25 @@
         <item
             android:id="@+id/nav_tutorial"
             android:icon="@drawable/ic_video_library_black_24px"
-            android:title="Quick Tutorial" />
+            android:title="Vies Tutorial" />
+    </group>
+
+    <group
+        android:id="@+id/grp2"
+        android:checkableBehavior="single">
+
         <item
             android:id="@+id/nav_about"
             android:icon="@drawable/ic_info_black_24px"
             android:title="About Vies" />
-
-
-
-    </group>
-
-    <group android:id="@+id/grp2" android:checkableBehavior="single">
-            <item
-                android:id="@+id/nav_settings"
-                android:icon="@drawable/ic_settings_black_24px"
-                android:title="Opzioni" />
-            <item
-                android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_cancel_black_24px"
-                android:title="Logout" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings_black_24px"
+            android:title="Opzioni" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_cancel_black_24px"
+            android:title="Logout" />
     </group>
 
 </menu>

@@ -12,7 +12,7 @@
     <string name="travelDateIn">Data di ritorno</string>
     <string name="location">Luogo</string>
     <string name="descrizione">Descrizione</string>
-    <string name="myTravels">I miei viaggi:</string>
+    <string name="myTravels">I miei album:</string>
     <string name="title_activity_travel_detail">TravelDetailActivity</string>
     <string name="title_activity_main2">Login (temp)</string>
 

@@ -1,9 +1,9 @@
 package vies.uniba.it.vies.activity;
 
-import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.graphics.Matrix;
-import android.media.Image;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -13,12 +13,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -27,6 +25,12 @@ import java.util.ArrayList;
 import vies.uniba.it.vies.R;
 import vies.uniba.it.vies.adapter.DepthPageTransformer;
 import vies.uniba.it.vies.model.ImageModel;
+import vies.uniba.it.vies.utils.viesAlert;
+
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 
 public class DetailPhotoActivity extends AppCompatActivity {
 
@@ -106,17 +110,29 @@ public class DetailPhotoActivity extends AppCompatActivity {
         });
 
         //zoom
-        iv = (ImageView)findViewById(R.id.detail_image);
-        SGD = new ScaleGestureDetector(this,new ScaleListener());
+      //  iv = (ImageView)findViewById(R.id.detail_image);
+       // SGD = new ScaleGestureDetector(this,new ScaleListener());
 
-    }
+
+        final FloatingActionButton addSocialPhoto = (FloatingActionButton) findViewById(R.id.addSocialPhoto);
+        addSocialPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final View viewfinal=view;
+
+                viesAlert.openAlert(viewfinal.getContext());
+            }
+        });
+
+
+    }/*
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         Toast.makeText(this, "touch",Toast.LENGTH_LONG).show();
         SGD.onTouchEvent(ev);
         return true;
     }
-
+/*
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
@@ -128,7 +144,7 @@ public class DetailPhotoActivity extends AppCompatActivity {
             return true;
         }
     }
-
+*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -136,18 +152,24 @@ public class DetailPhotoActivity extends AppCompatActivity {
         return true;
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 return true;
+            case R.id.action_edit_album:
+                return true;
+            case R.id.action_delete_album:
+                return true;
             case R.id.openMap:
                 return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
+
+
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -232,12 +254,22 @@ public class DetailPhotoActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            rootView = inflater.inflate(R.layout.fragment_detail, container, false);
+            //rootView = inflater.inflate(R.layout.fragment_detail, container, false);
 
-            imageView = (ImageView) rootView.findViewById(R.id.detail_image);
+           // imageView = (ImageView) rootView.findViewById(R.id.detail_image);
 
-            Glide.with(getActivity()).load(url).thumbnail(0.1f).into(imageView);
+            rootView = inflater.inflate(R.layout.subscaleview, container, false);
 
+            final SubsamplingScaleImageView imageView = (SubsamplingScaleImageView) rootView.findViewById(R.id.image);
+            //Glide.with(getActivity()).load(url).thumbnail(0.1f).into(imageView);
+            Glide.with(getActivity()).load(url).asBitmap().thumbnail(0.1f).into(
+                    new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(Bitmap bitmap, GlideAnimation anim) {
+                            imageView.setImage(ImageSource.bitmap(bitmap));
+
+                        }
+                    });
             return rootView;
 
         }

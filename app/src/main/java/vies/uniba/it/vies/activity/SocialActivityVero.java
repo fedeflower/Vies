@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
@@ -38,8 +39,9 @@ import vies.uniba.it.vies.model.Album;
 import vies.uniba.it.vies.model.ImageModel;
 import vies.uniba.it.vies.utils.App;
 import vies.uniba.it.vies.utils.Utils;
+import vies.uniba.it.vies.utils.viesAlert;
 
-public class Test extends AppCompatActivity {
+public class SocialActivityVero extends AppCompatActivity {
     RecyclerView recyclerView;
     MapView mMapView;
     private GoogleMap googleMap;
@@ -90,10 +92,6 @@ public class Test extends AppCompatActivity {
             }
         }
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos.get(0), 12));
-
-
-
-
 
 
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this,
@@ -154,7 +152,8 @@ public class Test extends AppCompatActivity {
             public void onMapLongClick(LatLng latLng) {
                 if (lastMarker != null) lastMarker.remove();
                 data.clear();
-                lastMarker = googleMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                lastMarker = googleMap.addMarker(new MarkerOptions().position(latLng).
+                        icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                 TextView tx = (TextView) findViewById(R.id.found_text);
                 String Lat = "Lat:" + latLng.latitude;
                 String Long = "Long:" + latLng.longitude;
@@ -189,7 +188,7 @@ public class Test extends AppCompatActivity {
             }
         });
 
-        fab.setRotation(-90);
+        fab.setRotation(0);
         fab.setVisibility(View.VISIBLE);
         fab.startAnimation(growAnimation);
 
@@ -226,14 +225,14 @@ public class Test extends AppCompatActivity {
                     case BottomSheetBehavior.STATE_COLLAPSED:
                         showFAB = true;
                         fab.setVisibility(View.VISIBLE);
-                        fab.setRotation(-90);
+                        fab.setRotation(0);
                         fab.startAnimation(growAnimation);
                         break;
 
                     case BottomSheetBehavior.STATE_EXPANDED:
                         showFAB = true;
                         fab.setVisibility(View.VISIBLE);
-                        fab.setRotation(90);
+                        fab.setRotation(180);
                         fab.startAnimation(growAnimation);
                         break;
 
@@ -251,13 +250,27 @@ public class Test extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_cerca, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 supportFinishAfterTransition();
                 return true;
-        }
+
+                    case R.id.openMap:{
+                        viesAlert.openAlert(this);
+                        return true;}
+                }
+
 
         return super.onOptionsItemSelected(item);
     }
 }
+
+

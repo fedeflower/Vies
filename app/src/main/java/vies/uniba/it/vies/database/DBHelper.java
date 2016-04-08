@@ -229,7 +229,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public List<LatLng> getCoord(String album){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from " + FOTO_TABLE + " where album='"+album+"'", null );
+        Cursor res =  db.rawQuery( "select * from " + FOTO_TABLE + " where album='"+album+"' group by name order by id", null );
         res.moveToFirst();
         Double lat;
         Double lng;

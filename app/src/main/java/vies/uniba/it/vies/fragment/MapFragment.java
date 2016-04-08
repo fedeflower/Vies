@@ -5,6 +5,8 @@ package vies.uniba.it.vies.fragment;
  */
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.graphics.Color;
 import android.location.LocationManager;
 import android.os.Bundle;
         import android.support.v4.app.Fragment;
@@ -22,22 +24,27 @@ import com.google.android.gms.maps.MapView;
         import com.google.android.gms.maps.model.BitmapDescriptorFactory;
         import com.google.android.gms.maps.model.CameraPosition;
         import com.google.android.gms.maps.model.LatLng;
-        import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import vies.uniba.it.vies.R;
+import vies.uniba.it.vies.activity.DetailPhotoActivity;
 import vies.uniba.it.vies.activity.LaunchScreenActivity;
 import vies.uniba.it.vies.database.DBHelper;
 import vies.uniba.it.vies.model.Album;
 import vies.uniba.it.vies.model.Location;
 import vies.uniba.it.vies.model.Photo;
+import vies.uniba.it.vies.utils.App;
+import vies.uniba.it.vies.utils.Utils;
 
 /**
  * A fragment that launches other parts of the demo application.
  */
-public class MapFragment extends Fragment {
+public class MapFragment extends Fragment  implements GoogleMap.OnMarkerClickListener {
 
     MapView mMapView;
     private GoogleMap googleMap;
@@ -45,19 +52,24 @@ public class MapFragment extends Fragment {
     private List<Photo> photos;
     public static boolean click=false;
     public static boolean noTag=false;
+    List <Marker> listaMarker = new ArrayList<>();
 
 
     public static void setClick() {
         click=true;
     }
 
+    public static String IMGS[]={}; //FF
+
     public static boolean getnoTag(){return noTag;}
     public MapFragment() {
     }
+    private Marker myMarker;
 
     @SuppressLint("ValidFragment")
     public MapFragment(String album_location) {
         this.album_location=album_location;
+        IMGS=Album.getAlbum(album_location); //FF
     }
 
     @Override
@@ -71,6 +83,11 @@ public class MapFragment extends Fragment {
         mMapView.onCreate(savedInstanceState);
 
         mMapView.onResume();// needed to get the map to display immediately
+        googleMap = mMapView.getMap();
+
+
+
+        googleMap.setOnMarkerClickListener(this);
 
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
@@ -78,7 +95,7 @@ public class MapFragment extends Fragment {
             e.printStackTrace();
         }
 
-        googleMap = mMapView.getMap();
+
         List<LatLng> pos=null;
         switch(album_location.toUpperCase()){
             case "BARI":{
@@ -101,13 +118,18 @@ public class MapFragment extends Fragment {
                 break;
             }
         }
-
+        //Log.w("Comments","PosSize: "+pos.size());
+        int i=0;
         if(pos!=null) {
             for (LatLng posz : pos) {
+                Log.w("Comments","Index "+i);
                 noTag=false;
-                googleMap.addMarker(new MarkerOptions().position(posz).title("Marker"));
+                //googleMap.addMarker(new MarkerOptions().position(posz).title("Marker"));
+                Marker gino = googleMap.addMarker(new MarkerOptions().position(posz).title(Utils.getNameFileFromUrl(IMGS[i])));
+                listaMarker.add(gino);//FF
+                i++;
             }
-            googleMap.addPolyline(new PolylineOptions().addAll(pos));
+            googleMap.addPolyline(new PolylineOptions().addAll(pos).color(Color.rgb(33,150,243)).width(20));
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos.get(0), 12));
         }
         else{
@@ -168,4 +190,21 @@ public class MapFragment extends Fragment {
         super.onLowMemory();
         mMapView.onLowMemory();
     }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+
+        if (marker.equals(myMarker)) {
+            //handle click here
+
+            Intent intent = new Intent(getActivity(), DetailPhotoActivity.class);
+            intent.putParcelableArrayListExtra("data", GalleryFragment.data);
+            intent.putExtra("pos",  listaMarker.lastIndexOf(myMarker));
+            startActivity(intent);
+        }
+        myMarker = marker;
+        return false;
+
+    }
+
 }

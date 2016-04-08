@@ -34,7 +34,7 @@ import vies.uniba.it.vies.utils.Utils;
 public class GalleryFragment extends Fragment {
         int color;
         GalleryAdapter adapter;
-        ArrayList<ImageModel> data = new ArrayList<>();
+        public static ArrayList<ImageModel> data = new ArrayList<>();
     String album_name;
 String album_location;
 

@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
@@ -35,6 +36,7 @@ import vies.uniba.it.vies.model.Album;
 import vies.uniba.it.vies.model.ImageModel;
 import vies.uniba.it.vies.utils.App;
 import vies.uniba.it.vies.utils.Utils;
+import vies.uniba.it.vies.utils.viesAlert;
 
 public class TrendingActivity extends AppCompatActivity {
     RecyclerView recyclerView;
@@ -187,7 +189,7 @@ public class TrendingActivity extends AppCompatActivity {
         });
 
 
-        fab.setRotation(-90);
+        fab.setRotation(0);
         fab.setVisibility(View.VISIBLE);
         fab.startAnimation(growAnimation);
 
@@ -224,14 +226,14 @@ public class TrendingActivity extends AppCompatActivity {
                     case BottomSheetBehavior.STATE_COLLAPSED:
                         showFAB = true;
                         fab.setVisibility(View.VISIBLE);
-                        fab.setRotation(-90);
+                        fab.setRotation(0);
                         fab.startAnimation(growAnimation);
                         break;
 
                     case BottomSheetBehavior.STATE_EXPANDED:
                         showFAB = true;
                         fab.setVisibility(View.VISIBLE);
-                        fab.setRotation(90);
+                        fab.setRotation(180);
                         fab.startAnimation(growAnimation);
                         break;
 
@@ -249,13 +251,27 @@ public class TrendingActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_cerca, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 supportFinishAfterTransition();
                 return true;
+
+            case R.id.openMap:{
+                viesAlert.openAlert(this);
+                return true;}
         }
 
         return super.onOptionsItemSelected(item);
     }
 }
+
+
+

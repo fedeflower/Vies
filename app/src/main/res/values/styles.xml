@@ -16,4 +16,9 @@
 
     <style name="MyTheme.Detail" parent="AppTheme"></style>
 
+    <style name="fab">
+        <item name="android:layout_marginTop">-16dp</item>
+
+    </style>
+
 </resources>

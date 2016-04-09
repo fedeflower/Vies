@@ -1,12 +1,18 @@
-<resources>>
+<resources>
 
     <style name="AppTheme" parent="AppTheme.Base">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+       
     </style>
     <style name="MyTheme.Detail" parent="AppTheme">
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+
+<style name="fab">
+    <item name="android:layout_marginEnd">@dimen/activity_horizontal_margin</item>
+    <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
+ </style>
 </resources>

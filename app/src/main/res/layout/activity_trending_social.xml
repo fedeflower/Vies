@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <include layout="@layout/bottom_sheet_trending"
+    <include layout="@layout/bottom_sheet_trending_social"
         android:id="@+id/gmail_bottom_sheet"/>
 
 

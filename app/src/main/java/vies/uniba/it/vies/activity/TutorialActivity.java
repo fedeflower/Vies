@@ -22,7 +22,7 @@ import android.widget.TextView;
 import vies.uniba.it.vies.R;
 import vies.uniba.it.vies.utils.Utils;
 
-public class PagerActivity extends AppCompatActivity {
+public class TutorialActivity extends AppCompatActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -41,7 +41,7 @@ public class PagerActivity extends AppCompatActivity {
     ImageButton mNextBtn;
     Button mSkipBtn, mFinishBtn;
 
-    ImageView zero, one, two, three; //three fede
+    ImageView zero, one, two, three, four; //three, four fede
     ImageView[] indicators;
 
     int lastLeftValue = 0;
@@ -49,7 +49,7 @@ public class PagerActivity extends AppCompatActivity {
     CoordinatorLayout mCoordinator;
 
 
-    static final String TAG = "PagerActivity";
+    static final String TAG = "TutorialActivity";
 
     //fede aggiunto array titoli
 
@@ -67,7 +67,7 @@ public class PagerActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.black_trans80));
         }
 
-        setContentView(R.layout.activity_pager);
+        setContentView(R.layout.activity_tutorial);
 
 
         // Create the adapter that will return a fragment for each of the three
@@ -87,11 +87,12 @@ public class PagerActivity extends AppCompatActivity {
         one = (ImageView) findViewById(R.id.intro_indicator_1);
         two = (ImageView) findViewById(R.id.intro_indicator_2);
         three = (ImageView) findViewById(R.id.intro_indicator_3); //fede
+        four = (ImageView) findViewById(R.id.intro_indicator_4);//fede
 
         mCoordinator = (CoordinatorLayout) findViewById(R.id.main_content);
 
 
-        indicators = new ImageView[]{zero, one, two, three}; //fede messa la numero 3
+        indicators = new ImageView[]{zero, one, two, three, four}; //fede messa la numero 3 e 4
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -172,7 +173,7 @@ public class PagerActivity extends AppCompatActivity {
         mSkipBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utils.saveSharedSetting(PagerActivity.this, MainActivity.PREF_USER_FIRST_TIME, "false");
+                Utils.saveSharedSetting(TutorialActivity.this, MainActivity.PREF_USER_FIRST_TIME, "false");
                 finish();
             }
         });
@@ -182,7 +183,7 @@ public class PagerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 finish();
                 //  update 1st time pref
-                Utils.saveSharedSetting(PagerActivity.this, MainActivity.PREF_USER_FIRST_TIME, "false");
+                Utils.saveSharedSetting(TutorialActivity.this, MainActivity.PREF_USER_FIRST_TIME, "false");
 
             }
         });
@@ -217,7 +218,7 @@ public class PagerActivity extends AppCompatActivity {
                 "Aggiungi le foto di altri utenti",
                 "Goditi i tuoi ricordi"};
         String[] descrizione_pager = new String[]{
-                "Organizza le tue album e le tue foto, ripercorri i luoghi dei tuoi scatti e scoprine di nuovi con ViesSocial.",
+                "Organizza i tuoi album e le tue foto, ripercorri i luoghi dei tuoi scatti e scoprine di nuovi con ViesSocial.",
 
                 "Inserisci titolo, luogo e descrizione della tua esperienza.",
 
@@ -251,7 +252,7 @@ public class PagerActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_pager, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_tutorial, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             textView.setText(titolo_pager[getArguments().getInt(ARG_SECTION_NUMBER) - 1]);

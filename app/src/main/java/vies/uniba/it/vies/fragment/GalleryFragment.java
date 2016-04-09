@@ -87,6 +87,8 @@ public GalleryFragment(int color,String album_name,String album_location) {
             //if(Prefs.getInstance(getActivity().getBaseContext()).getBoolean("album2_"+album_name, false)){
 
         //}
+            //Per cancellare le foto dalla cache quando esco da un abum (per evitare la duplicazione infinita)
+            data.clear();
 
             for (int i = 0; i < IMGS.length; i++) {
 
@@ -129,6 +131,7 @@ public GalleryFragment(int color,String album_name,String album_location) {
                             intent.putExtra("album_name",album_name);
                             intent.putExtra("album_location",album_location);
                             intent.putExtra("pos", position);
+                            intent.putExtra("fabVisibile",true);
                             startActivity(intent);
 
                         }

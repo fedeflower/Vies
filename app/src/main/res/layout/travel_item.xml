@@ -35,7 +35,7 @@
         android:layout_centerVertical="true"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:background="@drawable/ic_menu_gallery"/>
+        android:background="@drawable/ic_photo_album_black_24px"/>
 
             <ImageView
                 android:id="@+id/countericon"

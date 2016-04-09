@@ -58,9 +58,9 @@ public class Album {
             "https://dl.dropboxusercontent.com/u/66373804/VIES/Roma-Fontana_di_Trevi.jpg",
             "https://dl.dropboxusercontent.com/u/66373804/VIES/Roma-Fori_Imperiali.jpg"};
     public static String ROMALAT[] = {
-            "41.906288888888895","41.89916111111111","41.90226944444445","41.89113611111111","41.90093333333333","41.89187777777778"};
+            "41.89916111111111","41.906288888888895","41.90226944444445","41.89113611111111","41.90093333333333","41.89187777777778"};
     public static String ROMALONG[] = {
-            "12.4815","12.473072222222221","12.458797222222222","12.4919","12.483036111111112","12.484030555555556"};
+            "12.473072222222221","12.4815","12.458797222222222","12.4919","12.483036111111112","12.484030555555556"};
 
     public static String DEF[] = {
             "https://dl.dropboxusercontent.com/u/66373804/VIES/Cuccioli%20(6).jpg",
@@ -245,6 +245,12 @@ public class Album {
         return IMGS;
     }
 
+    public static boolean checkAlbum(String nome){
+     List<String> nomi=new ArrayList<>(Arrays.asList(ALBUMS));
+        if (nomi.contains(nome)) return true;
+        else return false;
+
+    }
 
 }
 

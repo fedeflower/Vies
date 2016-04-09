@@ -35,7 +35,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.PagerActivity"
+            android:name=".activity.TutorialActivity"
             android:theme="@style/MyTheme.Detail"
             android:screenOrientation="portrait"/>
         <activity
@@ -72,14 +72,6 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.WorldActivity"
-            android:label="Vies"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".activity.TrendingActivityOld"
-            android:label="Vies"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".activity.SocialActivity"
             android:label="Vies"
             android:screenOrientation="portrait"/>
         <activity

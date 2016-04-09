@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -78,7 +79,7 @@ public class TrendingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trending);
+        setContentView(R.layout.activity_trending_social);
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.gmail_toolbar);
         setSupportActionBar(toolbar);
@@ -101,27 +102,37 @@ public class TrendingActivity extends AppCompatActivity {
 
         List<LatLng> pos=new ArrayList<>();
 
-        int random= new Random().nextInt(3)+3;
-
-        List<Integer> pescate=new ArrayList<Integer>();
-        for(int i=0;i<random;i++) {
-            int random_no = new Random().nextInt(coords.length);
-            String img = (coords[random_no]);
+        int random = new Random().nextInt(3)+3;
+int i=0;
+        List<Integer> FotoPescate=new ArrayList<Integer>();
+        List<Integer> CoordPescate=new ArrayList<Integer>();
+      //CHECK per verificare che non ci siano più coordinate\foto uguali tra di loro
+        while (i<random){
 
             int random_foto = new Random().nextInt(foto.length);
-            if(!pescate.contains(random_foto)){
-            pescate.add(random_foto);
-            pos.add(new LatLng(Double.parseDouble(img.split(",")[0]), Double.parseDouble(img.split(",")[1])));
-            ImageModel imageModel = new ImageModel();
-            imageModel.setName(Utils.getNameFileFromUrl(foto[random_foto]));
-            imageModel.setUrl(foto[random_foto]);
-            data.add(imageModel);}
-            else i--;
-        }
+                int random_no = new Random().nextInt(coords.length);
+                String img = (coords[random_no]);
+                if (!CoordPescate.contains(random_no)) {
+                    CoordPescate.add(random_no);
 
+                    if (!FotoPescate.contains(random_foto)) {
+                        FotoPescate.add(random_foto);
+                        pos.add(new LatLng(Double.parseDouble(img.split(",")[0]), Double.parseDouble(img.split(",")[1])));
+                        ImageModel imageModel = new ImageModel();
+                        imageModel.setName(Utils.getNameFileFromUrl(foto[random_foto]));
+                        imageModel.setUrl(foto[random_foto]);
+//
+                        data.add(imageModel);
+
+                        i++; //Il subtitle prende questo indice e non più "random"
+                    }
+
+                }
+            }
+        Log.d("Comments","fine");
         TextView bottom=(TextView) findViewById(R.id.bottom_text);
         TextView bottom2=(TextView) findViewById(R.id.found_text);
-        bottom2.setText("Ci sono " + random + " trending foto...");
+        bottom2.setText("Ci sono " + i + " trending foto...");
         bottom.setText("Ecco gli scatti più scelti su Vies!");
 
         if(pos!=null) {
@@ -154,6 +165,8 @@ public class TrendingActivity extends AppCompatActivity {
                         intent.putParcelableArrayListExtra("data", data);
                         intent.putExtra("album_name", "Trending Now");
                         intent.putExtra("pos", position);
+                        intent.putExtra("album_location","Trending");
+                        intent.putExtra("fabVisibile",false);
                         startActivity(intent);
                     }
                 }));

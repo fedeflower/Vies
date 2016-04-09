@@ -175,7 +175,7 @@ public class MapFragment extends Fragment  implements GoogleMap.OnMarkerClickLis
     public void onResume() {
         super.onResume();
         mMapView.onResume();
-        if(!zoom){
+        if(!zoom && pos!=null){
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pos.get(0), 12));
             zoom=true;}
         if(DetailPhotoActivity.mapClick==true) {
@@ -211,8 +211,9 @@ public class MapFragment extends Fragment  implements GoogleMap.OnMarkerClickLis
 
             Intent intent = new Intent(getActivity(), DetailPhotoActivity.class);
             intent.putParcelableArrayListExtra("data", GalleryFragment.data);
-            intent.putExtra("pos",  listaMarker.lastIndexOf(myMarker));
+            intent.putExtra("pos", listaMarker.lastIndexOf(myMarker));
             intent.putExtra("album_location",album_location);
+            intent.putExtra("fabVisibile",true);
             startActivity(intent);
         }
         myMarker = marker;

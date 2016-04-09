@@ -272,7 +272,7 @@ public class TabGMActivity extends AppCompatActivity {
     public void sceltaInserisciFoto(int i,Context ct) {
         switch (i){
             case 0:{ //caricare activity
-                Intent intent = new Intent(this, SocialActivity.class);
+                Intent intent = new Intent(this, SocialActivityVero.class);
                 intent.putExtra("album_name",album_name);
                 intent.putExtra("album_location",album_location);
                 startActivity(intent);

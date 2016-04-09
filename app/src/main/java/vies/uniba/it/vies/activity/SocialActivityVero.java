@@ -37,7 +37,6 @@ import vies.uniba.it.vies.adapter.RecyclerItemClickListener;
 import vies.uniba.it.vies.database.DBHelper;
 import vies.uniba.it.vies.model.Album;
 import vies.uniba.it.vies.model.ImageModel;
-import vies.uniba.it.vies.utils.App;
 import vies.uniba.it.vies.utils.Utils;
 import vies.uniba.it.vies.utils.viesAlert;
 
@@ -55,7 +54,7 @@ public class SocialActivityVero extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trending);
+        setContentView(R.layout.activity_trending_social);
 
         album_name = getIntent().getStringExtra("album_name");
         album_location = getIntent().getStringExtra("album_location");
@@ -86,12 +85,16 @@ public class SocialActivityVero extends AppCompatActivity {
         pos = DBHelper.getInstance(this).getCoord(album_location.toUpperCase());
 
 
-        if (pos != null) {
+
+        if (!pos.isEmpty()) {
+        //if (pos != null && Album.checkAlbum(album_location)) {
             for (LatLng posz : pos) {
-                googleMap.addMarker(new MarkerOptions().position(posz).title("Marker"));
+                googleMap.addMarker(new MarkerOptions().position(posz)/*.title("Marker")*/);
+
             }
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos.get(0), 12));
         }
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos.get(0), 12));
+       // googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos.get(0), 12));
 
 
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this,
@@ -109,8 +112,10 @@ public class SocialActivityVero extends AppCompatActivity {
 
                         Intent intent = new Intent(view.getContext(), DetailPhotoActivity.class);
                         intent.putParcelableArrayListExtra("data", data);
-                        intent.putExtra("album_name", "Social");
+                        intent.putExtra("album_name", album_name);
                         intent.putExtra("pos", position);
+                        intent.putExtra("album_location", album_location);
+                        intent.putExtra("fabVisibile",false);
                         startActivity(intent);
 
                     }

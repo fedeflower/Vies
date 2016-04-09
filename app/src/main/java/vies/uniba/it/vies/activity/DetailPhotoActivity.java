@@ -17,23 +17,23 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 
 import vies.uniba.it.vies.R;
-import vies.uniba.it.vies.adapter.DepthPageTransformer;
+import vies.uniba.it.vies.adapter.SwipePhotoAdapter;
 import vies.uniba.it.vies.database.DBHelper;
 import vies.uniba.it.vies.model.Album;
 import vies.uniba.it.vies.model.ImageModel;
 import vies.uniba.it.vies.utils.viesAlert;
-
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.davemorrissey.labs.subscaleview.ImageSource;
-import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 
 public class DetailPhotoActivity extends AppCompatActivity {
 
@@ -53,6 +53,8 @@ public class DetailPhotoActivity extends AppCompatActivity {
     String album_location;
 
     Toolbar toolbar;
+
+    private boolean fabVisibile;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -79,11 +81,15 @@ public class DetailPhotoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         data = getIntent().getParcelableArrayListExtra("data");
-        pos = getIntent().getIntExtra("pos", 0);
-        album_name=getIntent().getStringExtra("album_name");
-        album_location=getIntent().getStringExtra("album_location").toUpperCase();
+        pos = getIntent().getIntExtra("pos", -1);
+        album_name = getIntent().getStringExtra("album_name");
+        album_location = getIntent().getStringExtra("album_location").toUpperCase();
+        fabVisibile = getIntent().getBooleanExtra("fabVisibile", fabVisibile);
 
-        posizione=new LatLng(Double.parseDouble(DBHelper.getAlbumField(album_location.concat("LAT"))[pos]),Double.parseDouble(DBHelper.getAlbumField(album_location.concat("LONG"))[pos]));
+        //per evitare errori se sta il no tag (serve per il pin sul menù)
+        if (fabVisibile && Album.checkAlbum(album_location))
+            posizione = new LatLng(Double.parseDouble(DBHelper.getAlbumField(album_location.concat("LAT"))[pos]), Double.parseDouble(DBHelper.getAlbumField(album_location.concat("LONG"))[pos]));
+
         setTitle(data.get(pos).getName());
         getSupportActionBar().setSubtitle(album_name);
 
@@ -92,7 +98,7 @@ public class DetailPhotoActivity extends AppCompatActivity {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), data);
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setPageTransformer(true, new DepthPageTransformer());
+        mViewPager.setPageTransformer(true, new SwipePhotoAdapter());
 
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setCurrentItem(pos);
@@ -108,7 +114,12 @@ public class DetailPhotoActivity extends AppCompatActivity {
 
                 //noinspection ConstantConditions
                 setTitle(data.get(position).getName());
+                if (fabVisibile) {
+                    posizione = new LatLng(Double.parseDouble(DBHelper.getAlbumField
+                            (album_location.concat("LAT"))[position]), Double.parseDouble
+                            (DBHelper.getAlbumField(album_location.concat("LONG"))[position]));
 
+                }
             }
 
             @Override
@@ -118,19 +129,23 @@ public class DetailPhotoActivity extends AppCompatActivity {
         });
 
         //zoom
-      //  iv = (ImageView)findViewById(R.id.detail_image);
-       // SGD = new ScaleGestureDetector(this,new ScaleListener());
+        //  iv = (ImageView)findViewById(R.id.detail_image);
+        // SGD = new ScaleGestureDetector(this,new ScaleListener());
 
 
         final FloatingActionButton addSocialPhoto = (FloatingActionButton) findViewById(R.id.addSocialPhoto);
         addSocialPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final View viewfinal=view;
+                final View viewfinal = view;
 
                 viesAlert.openAlert(viewfinal.getContext());
             }
         });
+
+        if (fabVisibile) {
+            addSocialPhoto.setVisibility(View.GONE);
+        }
 
 
     }/*
@@ -153,10 +168,14 @@ public class DetailPhotoActivity extends AppCompatActivity {
         }
     }
 */
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_detail, menu);
+        if (fabVisibile) {
+            getMenuInflater().inflate(R.menu.menu_detail, menu);
+        }
+
         return true;
     }
 
@@ -167,18 +186,24 @@ public class DetailPhotoActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.action_edit_album:
+                viesAlert.openAlert(this);
                 return true;
             case R.id.action_delete_album:
+                viesAlert.openAlert(this);
                 return true;
             case R.id.openMap:
-                mapClick=true;
-                finish();
+                if(posizione!=null){
+                mapClick = true;
+                finish();}
+                else {
+
+                    Toast.makeText(this, "Nessun GeoTag Presente", Toast.LENGTH_LONG).show();
+                }
                 return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-
 
 
     /**
@@ -226,7 +251,7 @@ public class DetailPhotoActivity extends AppCompatActivity {
         private static final String ARG_SECTION_NUMBER = "section_number";
         private static final String ARG_IMG_TITLE = "image_title";
         private static final String ARG_IMG_URL = "image_url";
- private View rootView;
+        private View rootView;
         private ImageView imageView;
 
         @Override
@@ -266,7 +291,7 @@ public class DetailPhotoActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             //rootView = inflater.inflate(R.layout.fragment_detail, container, false);
 
-           // imageView = (ImageView) rootView.findViewById(R.id.detail_image);
+            // imageView = (ImageView) rootView.findViewById(R.id.detail_image);
 
             rootView = inflater.inflate(R.layout.subscaleview, container, false);
 
@@ -288,6 +313,6 @@ public class DetailPhotoActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mapClick=false;
+        mapClick = false;
     }
 }

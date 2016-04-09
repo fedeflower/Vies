@@ -42,7 +42,7 @@ public class viesAlert {
     public static void exitAlert(Context context) {
 
         final MainActivity main =((MainActivity) context);
-        android.support.v7.app.AlertDialog.Builder alertDialogBuilder = new android.support.v7.app.AlertDialog.Builder(context);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
         alertDialogBuilder.setTitle("Uscita");
 
@@ -74,7 +74,7 @@ public class viesAlert {
 
         );
 
-        android.support.v7.app.AlertDialog alertDialog = alertDialogBuilder.create();
+        AlertDialog alertDialog = alertDialogBuilder.create();
 
         // show alert
         alertDialog.show();

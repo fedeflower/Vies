@@ -20,13 +20,15 @@
             android:layout_height="256dp"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            android:background="@color/black"
+            >
 
             <ImageView
                 android:id="@+id/htab_header"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:foreground="@color/semi_transparent"
+                android:alpha="0.6"
                 android:background="@drawable/header"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"

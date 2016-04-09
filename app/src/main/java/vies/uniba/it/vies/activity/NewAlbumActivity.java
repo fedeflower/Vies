@@ -1,7 +1,6 @@
 package vies.uniba.it.vies.activity;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
@@ -62,8 +61,8 @@ public class NewAlbumActivity extends AppCompatActivity {
         };
 
         albumId = getIntent().getIntExtra("album_id", -1);
-        Log.d("test", "" +  albumId);
-        if(albumId>0) {
+        Log.d("test", "" + albumId);
+        if (albumId > 0) {
             Travel t = DBHelper.getInstance(this).getTravels(albumId);
             travelName.setText(t.getName());
             dateOutCalendar.setTimeInMillis(t.getDateOut());
@@ -126,29 +125,27 @@ public class NewAlbumActivity extends AppCompatActivity {
 
                 //CHECK SE VIENE INSERITA UNA LOCALITA' DIVERSA DA QUELLE PREDEFINITE == DA QUELLE NON PRESENTI NELLA GALLERIA
 
-                Log.d("Comments", travelLocationName.getText().toString().toUpperCase());
-                if (travelLocationName.getText().toString().toUpperCase().equals("PARIGI")
-                        || travelLocationName.getText().toString().toUpperCase().equals("ROMA")
-                        || travelLocationName.getText().toString().toUpperCase().equals("BARI")) {
-                    Toast.makeText(getApplicationContext(), "Verranno caricate automaticamente tutte le foto scattate intorno a  "
-                                    + travelLocationName.getText().toString()
-                                    + ", nel periodo selezionato.",
 
-                            Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Non è stata trovata nessuna foto scattata a "
-                                    + travelLocationName.getText().toString()
-                                    + ", nel periodo selezionato"
-                                    + ". Sarà caricato l'album di default.",
-
-                            Toast.LENGTH_LONG).show();
-                }
-
-
-                if(albumId>0) {
+                if (albumId > 0) {
                     DBHelper.getInstance(getApplicationContext()).updateTravel(travel);
                     finish();
                 } else {
+                    if (travelLocationName.getText().toString().toUpperCase().equals("PARIGI")
+                            || travelLocationName.getText().toString().toUpperCase().equals("ROMA")
+                            || travelLocationName.getText().toString().toUpperCase().equals("BARI")) {
+                        Toast.makeText(getApplicationContext(), "Verranno caricate automaticamente tutte le foto scattate intorno a  "
+                                        + travelLocationName.getText().toString()
+                                        + ", nel periodo selezionato.",
+
+                                Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Non è stata trovata nessuna foto scattata a "
+                                        + travelLocationName.getText().toString()
+                                        + ", nel periodo selezionato"
+                                        + ". Sarà caricato l'album di default.",
+
+                                Toast.LENGTH_LONG).show();
+                    }
                     DBHelper.getInstance(getApplicationContext()).insertTravel(travel);
                     finish();
                 }

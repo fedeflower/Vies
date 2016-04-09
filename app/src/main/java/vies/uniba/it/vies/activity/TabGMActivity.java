@@ -35,6 +35,7 @@ import vies.uniba.it.vies.database.DBHelper;
 import vies.uniba.it.vies.fragment.GalleryFragment;
 import vies.uniba.it.vies.fragment.MapFragment;
 import vies.uniba.it.vies.model.Album;
+import vies.uniba.it.vies.model.Travel;
 import vies.uniba.it.vies.utils.App;
 import vies.uniba.it.vies.utils.viesAlert;
 
@@ -292,6 +293,12 @@ public class TabGMActivity extends AppCompatActivity {
         super.onResume();
         if(DetailPhotoActivity.mapClick==true)
         viewPager.setCurrentItem(1);
+        Travel t=new Travel();
+        t= DBHelper.getInstance(this).getTravels(album_id);
+        getSupportActionBar().setTitle(t.getName());
+        getSupportActionBar().setSubtitle(t.getLocation().getName());
+        descrizioneView.setText(t.getDescrizione());
+
     }
 
 }

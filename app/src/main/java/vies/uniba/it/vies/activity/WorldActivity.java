@@ -75,7 +75,7 @@ public class WorldActivity extends AppCompatActivity {
         Log.d("Comments", "1");
         pos= DBHelper.getInstance(this).getAllCoord();
 
-        if(pos!=null) {
+        if(!pos.isEmpty()) {
             for (LatLng posz : pos) {
 
                 googleMap.addMarker(new MarkerOptions().position(posz).title("Marker"));

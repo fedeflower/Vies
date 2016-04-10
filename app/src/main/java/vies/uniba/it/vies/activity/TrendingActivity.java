@@ -138,7 +138,7 @@ int i=0;
         if(pos!=null) {
             for (LatLng posz : pos) {
 
-                googleMap.addMarker(new MarkerOptions().position(posz).title("Marker"));
+                googleMap.addMarker(new MarkerOptions().position(posz));
             }
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos.get(0), 0));
         }

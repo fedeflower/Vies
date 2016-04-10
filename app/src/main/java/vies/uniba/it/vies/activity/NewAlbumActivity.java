@@ -61,7 +61,7 @@ public class NewAlbumActivity extends AppCompatActivity {
         };
 
         albumId = getIntent().getIntExtra("album_id", -1);
-        Log.d("test", "" + albumId);
+        //Log.d("test", "" + albumId);
         if (albumId > 0) {
             Travel t = DBHelper.getInstance(this).getTravels(albumId);
             travelName.setText(t.getName());
@@ -69,7 +69,10 @@ public class NewAlbumActivity extends AppCompatActivity {
             travelDate.setText(DateUtils.formatDate(dateOutCalendar.getTime()));
             travelLocationName.setText(t.getLocation().getName());
             travelDescrizione.setText(t.getDescrizione());
+            getSupportActionBar().setTitle("Modifica Album");
         }
+
+
 
 
 
